@@ -1,4 +1,5 @@
 import { Users, Briefcase, Handshake, Trophy } from "lucide-react";
+import { motion } from "framer-motion";
 
 const stats = [
   {
@@ -30,27 +31,41 @@ export default function Stats() {
 
         <div className="grid md:grid-cols-4 gap-8">
 
-          {stats.map((stat) => {
+          {stats.map((stat, index) => {
             const Icon = stat.icon;
 
             return (
-              <div
+              <motion.div
                 key={stat.label}
+                initial={{
+                  opacity: 0,
+                  y: 40,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{ once: true }}
+                transition={{
+                  delay: index * 0.1,
+                }}
+                whileHover={{
+                  y: -10,
+                }}
                 className="
                   bg-white
                   rounded-3xl
                   p-8
                   text-center
                   shadow-sm
-                  hover:-translate-y-2
-                  transition
+                  transition-all
                 "
               >
                 <Icon
-                  size={36}
+                  size={38}
                   className="
                     mx-auto
-                    mb-4
+                    mb-5
                     text-[#0f172a]
                   "
                 />
@@ -62,11 +77,11 @@ export default function Stats() {
                 <p className="mt-3 text-slate-500">
                   {stat.label}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
-
         </div>
+
       </div>
     </section>
   );

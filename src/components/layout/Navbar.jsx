@@ -13,6 +13,7 @@ export default function Navbar() {
         backdrop-blur-lg
         border-b
         border-black/5
+        shadow-sm
       "
     >
       <div
@@ -20,7 +21,7 @@ export default function Navbar() {
           max-w-7xl
           mx-auto
           px-8
-          h-24
+          h-28
           flex
           items-center
           justify-between
