@@ -39,7 +39,7 @@ export default function Hero() {
         >
           Building
           <br />
-          Communities.
+          Impact
         </motion.h1>
 
         <motion.p

@@ -1,75 +1,113 @@
 import { motion } from "framer-motion";
 
 const moments = [
-  "/images/home/placeholder1.jpg",
-  "/images/home/placeholder2.jpg",
-  "/images/home/placeholder3.jpg",
-  "/images/home/placeholder4.jpg",
-  "/images/home/placeholder5.jpg",
+  "/images/home/m1.jpg",
+  "/images/home/m2.jpg",
+  "/images/home/m3.jpg",
+  "/images/home/m4.jpg",
+  "/images/home/m5.jpg",
 ];
 
 export default function Moments() {
+  const duplicatedMoments = [...moments, ...moments];
+
   return (
-    <section className="py-32 px-8 overflow-hidden">
+    <section className="py-28 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
 
-      <div className="max-w-7xl mx-auto">
+        <p className="uppercase tracking-[0.35em] text-sm text-slate-500 text-center">
+          Our Journey
+        </p>
 
-        <div className="text-center mb-16">
+        <h2 className="text-4xl md:text-6xl font-bold text-center mt-4">
+          Moments That Define Us
+        </h2>
 
-          <p className="uppercase tracking-[0.35em] text-sm text-slate-500">
-            Our Journey
-          </p>
-
-          <h2 className="mt-4 text-5xl md:text-6xl font-bold text-[#0f172a]">
-            Best Moments
-          </h2>
-
-        </div>
-
-        <div className="flex gap-8 overflow-x-auto pb-4">
-
-          {moments.map((image, index) => (
-            <motion.div
-              key={index}
-              whileHover={{
-                y: -8,
-                scale: 1.02,
-              }}
-              className="
-                min-w-[320px]
-                h-[420px]
-                rounded-[32px]
-                overflow-hidden
-                bg-white
-                shadow-sm
-                flex
-                items-center
-                justify-center
-              "
-            >
-              <div
-                className="
-                  w-full
-                  h-full
-                  bg-gradient-to-br
-                  from-slate-200
-                  to-slate-300
-                  flex
-                  items-center
-                  justify-center
-                  text-slate-500
-                  text-lg
-                "
-              >
-                Moment {index + 1}
-              </div>
-            </motion.div>
-          ))}
-
-        </div>
+        <p className="mt-6 text-center text-slate-600 max-w-2xl mx-auto">
+          Memories, impact, friendships and moments that define our journey.
+        </p>
 
       </div>
 
+      <div className="mt-16 overflow-hidden">
+
+        <motion.div
+          className="flex gap-8"
+          animate={{
+            x: ["0%", "-50%"],
+          }}
+          transition={{
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 30,
+            ease: "linear",
+          }}
+        >
+          {duplicatedMoments.map((image, index) => (
+            <motion.div
+              key={index}
+              whileHover={{
+                scale: 1.03,
+                y: -8,
+              }}
+              transition={{
+                duration: 0.3,
+              }}
+              className="
+                relative
+                min-w-[320px]
+                md:min-w-[500px]
+                h-[420px]
+                md:h-[520px]
+                rounded-[32px]
+                overflow-hidden
+                shadow-xl
+                bg-slate-200
+              "
+            >
+              <img
+                src={image}
+                alt={`Moment ${index + 1}`}
+                className="
+                  w-full
+                  h-full
+                  object-cover
+                "
+                onError={(e) => {
+                  e.target.src =
+                    "https://placehold.co/1200x800/e2e8f0/64748b?text=RCMG+Moment";
+                }}
+              />
+
+              <div
+                className="
+                  absolute
+                  inset-0
+                  bg-gradient-to-t
+                  from-black/60
+                  via-transparent
+                  to-transparent
+                "
+              />
+
+              <div
+                className="
+                  absolute
+                  bottom-6
+                  left-6
+                  text-white
+                "
+              >
+                <p className="text-lg font-semibold">
+                  RCMG Memories
+                </p>
+              </div>
+
+            </motion.div>
+          ))}
+        </motion.div>
+
+      </div>
     </section>
   );
 }
