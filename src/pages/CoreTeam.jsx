@@ -3,7 +3,7 @@ import PageTransition from "../components/animations/PageTransition";
 const president = {
   name: "Chittansh Pancholi",
   position: "President",
-  image: "/images/team/chittansh.png",
+  image: "/images/team/chittansh.jpeg",
 };
 
 const ipp = {
@@ -15,19 +15,24 @@ const ipp = {
 const secretary = {
   name: "Shraddha Sutar",
   position: "Secretary",
-  image: "/images/team/shraddha.png",
+  image: "/images/team/shraddha.jpeg",
 };
 
 const vicePresidents = [
   {
     name: "Om Walanju",
     position: "Vice President",
-    image: "/images/team/om.png",
+    image: "/images/team/om.jpg",
   },
   {
     name: "Triman Oberoi",
     position: "Vice President",
-    image: "/images/team/triman.png",
+    image: "/images/team/triman.jpeg",
+  },
+  {
+    name: "Yashvi Shah",
+    position: "Vice President & Sergeant-at-Arms",
+    image: "/images/team/yashvi.png",
   },
 ];
 
@@ -48,7 +53,7 @@ const treasurers = [
   {
     name: "Kunjal Pal",
     position: "Treasurer",
-    image: "/images/team/kunjal.png",
+    image: "/images/team/kunjal.jpg",
   },
   {
     name: "Purav Shah",
@@ -67,12 +72,12 @@ const hrd = [
   {
     name: "Khushi Modi",
     position: "Human Resource Development",
-    image: "/images/team/khushi.png",
+    image: "/images/team/khushi.jpg",
   },
   {
     name: "Sanjana Sardesai",
     position: "Human Resource Development",
-    image: "/images/team/sanjana.png",
+    image: "/images/team/sanjana.jpg",
   },
   {
     name: "Sayam Parekh",
@@ -107,7 +112,7 @@ const avenues = [
 const advisor = {
   name: "Tisha Kothari",
   position: "Club Advisor",
-  image: "/images/team/tisha.png",
+  image: "/images/team/tisha.jpeg",
 };
 
 function TeamCard({ member, featured = false }) {
@@ -115,16 +120,14 @@ function TeamCard({ member, featured = false }) {
     <div
       className={`bg-white overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
         featured
-          ? "rounded-3xl shadow-lg border-2 border-[#0f172a]/10"
+          ? "rounded-3xl shadow-lg ring-2 ring-[#0f172a]/10"
           : "rounded-3xl shadow-sm"
       }`}
     >
       <img
         src={member.image}
         alt={member.name}
-        className={`w-full object-cover ${
-          featured ? "aspect-[4/3]" : "aspect-square"
-        }`}
+        className="w-full aspect-square object-cover"
         onError={(e) => {
           e.target.src =
             "https://placehold.co/600x600/e2e8f0/475569?text=RCMG";
@@ -136,11 +139,7 @@ function TeamCard({ member, featured = false }) {
           {member.position}
         </p>
 
-        <h3
-          className={`mt-2 font-bold text-[#0f172a] ${
-            featured ? "text-2xl md:text-3xl" : "text-xl"
-          }`}
-        >
+        <h3 className="mt-2 text-xl md:text-2xl font-bold text-[#0f172a]">
           {member.name}
         </h3>
       </div>
@@ -169,17 +168,17 @@ export default function CoreTeam() {
       </section>
 
       {/* President */}
-      <section className="max-w-5xl mx-auto px-6 md:px-8">
+      <section className="max-w-3xl mx-auto px-6 md:px-8">
         <TeamCard member={president} featured />
       </section>
 
       {/* IPP */}
-      <section className="max-w-5xl mx-auto px-6 md:px-8 py-12">
+      <section className="max-w-3xl mx-auto px-6 md:px-8">
         <TeamCard member={ipp} featured />
       </section>
 
       {/* Secretary */}
-      <section className="max-w-5xl mx-auto px-6 md:px-8 pb-12">
+      <section className="max-w-3xl mx-auto px-6 md:px-8">
         <TeamCard member={secretary} featured />
       </section>
 
@@ -232,7 +231,7 @@ export default function CoreTeam() {
       </section>
 
       {/* Sergeant-at-Arms */}
-      <section className="max-w-4xl mx-auto px-6 md:px-8 py-16">
+      <section className="max-w-3xl mx-auto px-6 md:px-8">
         <h2 className="text-4xl font-bold text-center mb-12">
           Sergeant-at-Arms
         </h2>
@@ -273,7 +272,7 @@ export default function CoreTeam() {
       </section>
 
       {/* Club Advisor */}
-      <section className="max-w-5xl mx-auto px-6 md:px-8 py-20">
+      <section className="max-w-3xl mx-auto px-6 md:px-8">
         <h2 className="text-4xl font-bold text-center mb-12">
           Club Advisor
         </h2>
