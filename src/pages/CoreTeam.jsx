@@ -9,7 +9,7 @@ const president = {
 const ipp = {
   name: "Parin Gala",
   position: "Immediate Past President",
-  image: "/images/team/parin.png",
+  image: "/images/team/parin.JPG",
 };
 
 const secretary = {
@@ -40,7 +40,7 @@ const jointSecretaries = [
   {
     name: "Prajyot Mahajan",
     position: "Joint Secretary",
-    image: "/images/team/prajyot.png",
+    image: "/images/team/prajyot.jpeg",
   },
   {
     name: "Tanishka Chandan",
@@ -95,7 +95,7 @@ const avenues = [
   {
     name: "Gauri Pawaskar",
     position: "Chairwoman – A3 Avenue",
-    image: "/images/team/gauri.png",
+    image: "/images/team/gauri.jpeg",
   },
   {
     name: "Hraday Karani",
