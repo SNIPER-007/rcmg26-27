@@ -12,6 +12,7 @@ import GetInvolved from "./pages/GetInvolved";
 import BOD from "./pages/BOD";
 
 import SmoothScroll from "./components/ui/SmoothScroll";
+import ScrollToTop from "./components/ScrollToTop";
 import Loader from "./components/ui/Loader";
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
       {!loading && (
         <BrowserRouter>
           <SmoothScroll />
+          <ScrollToTop />
 
           <Layout>
             <Routes>
