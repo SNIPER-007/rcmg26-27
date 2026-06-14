@@ -1,15 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import Lenis from "lenis";
 
 export default function SmoothScroll() {
   const { pathname } = useLocation();
+  const lenisRef = useRef(null);
 
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.4,
       smoothWheel: true,
     });
+
+    lenisRef.current = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -24,11 +27,11 @@ export default function SmoothScroll() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, {
+        immediate: true,
+      });
+    }
   }, [pathname]);
 
   return null;

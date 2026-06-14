@@ -33,7 +33,6 @@ export default function App() {
       {!loading && (
         <BrowserRouter>
           <SmoothScroll />
-          <ScrollToTop />
 
           <Layout>
             <Routes>
