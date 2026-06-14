@@ -9,6 +9,7 @@ import Sponsors from "./pages/Sponsors";
 import CoreTeam from "./pages/CoreTeam";
 import Achievements from "./pages/Achievements";
 import GetInvolved from "./pages/GetInvolved";
+import BOD from "./pages/BOD";
 
 import SmoothScroll from "./components/ui/SmoothScroll";
 import Loader from "./components/ui/Loader";
@@ -40,6 +41,7 @@ export default function App() {
               <Route path="/core-team" element={<CoreTeam />} />
               <Route path="/achievements" element={<Achievements />} />
               <Route path="/get-involved" element={<GetInvolved />} />
+              <Route path="/bod" element={<BOD />} />
             </Routes>
           </Layout>
         </BrowserRouter>

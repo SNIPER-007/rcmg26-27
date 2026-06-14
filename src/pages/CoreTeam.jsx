@@ -1,4 +1,5 @@
 import PageTransition from "../components/animations/PageTransition";
+import { Link } from "react-router-dom";
 
 const president = {
   name: "Chittansh Pancholi",
@@ -165,6 +166,43 @@ export default function CoreTeam() {
           of passionate leaders committed to service, fellowship and
           impact.
         </p>
+      </section>
+
+      {/* Team Toggle */}
+      <section className="max-w-7xl mx-auto px-6 md:px-8 pb-12">
+        <div className="flex justify-center">
+          <div className="bg-white rounded-full p-2 shadow-sm border border-slate-200 flex gap-2">
+
+            <button
+              className="
+                px-6
+                py-3
+                rounded-full
+                bg-[#0f172a]
+                text-white
+                font-medium
+              "
+            >
+              Core Team
+            </button>
+
+            <Link
+              to="/bod"
+              className="
+                px-6
+                py-3
+                rounded-full
+                text-slate-600
+                hover:bg-slate-100
+                transition-all
+                font-medium
+              "
+            >
+              Board of Directors
+            </Link>
+
+          </div>
+        </div>
       </section>
 
       {/* President */}
