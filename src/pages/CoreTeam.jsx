@@ -82,7 +82,7 @@ const hrd = [
   {
     name: "Sayam Parekh",
     position: "Human Resource Development",
-    image: "/images/team/sayam.png",
+    image: "/images/team/sayam.jpg",
   },
 ];
 
