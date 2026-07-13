@@ -36,7 +36,7 @@ const timeline = [
   year: "2025-26",
   title: "District Rank #10",
   description:
-    "District ranking to be announced, continuing a tradition of excellence and impact.",
+    "Continuing a tradition of excellence and impact.",
 },
 {
   year: "2026-27",
