@@ -10,6 +10,8 @@ import CoreTeam from "./pages/CoreTeam";
 import Achievements from "./pages/Achievements";
 import GetInvolved from "./pages/GetInvolved";
 import BOD from "./pages/BOD";
+import Blogs from "./pages/Blogs";
+import BlogPost from "./pages/BlogPost";
 
 import SmoothScroll from "./components/ui/SmoothScroll";
 import Loader from "./components/ui/Loader";
@@ -42,6 +44,8 @@ export default function App() {
               <Route path="/achievements" element={<Achievements />} />
               <Route path="/get-involved" element={<GetInvolved />} />
               <Route path="/bod" element={<BOD />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blogs/:id" element={<BlogPost />} />
             </Routes>
           </Layout>
         </BrowserRouter>

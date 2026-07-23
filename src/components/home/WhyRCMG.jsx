@@ -1,5 +1,6 @@
 import { Users, HeartHandshake, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
+import ScrollReveal from "../ui/ScrollReveal";
 
 const features = [
   {
@@ -24,23 +25,27 @@ const features = [
 
 export default function WhyRCMG() {
   return (
-    <section className="py-32 px-8 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section id="why-rcmg" className="py-32 px-8 bg-white relative overflow-hidden">
+      
+      {/* Decorative Blur */}
+      <div className="absolute top-[30%] right-[-10%] w-[350px] h-[350px] bg-[#f8f6f1] blur-[100px] rounded-full pointer-events-none" />
 
-        <div className="text-center mb-20">
-          <p className="uppercase tracking-[0.35em] text-sm text-slate-500">
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-20">
+          <p className="uppercase tracking-[0.35em] text-xs sm:text-sm font-bold text-slate-500">
             Why RCMG
           </p>
 
-          <h2 className="mt-4 text-5xl md:text-6xl font-bold text-[#0f172a]">
+          <h2 className="mt-4 text-5xl md:text-6xl font-bold tracking-tight text-[#0f172a]">
             More Than A Club
           </h2>
 
-          <p className="mt-6 max-w-2xl mx-auto text-slate-600">
+          <p className="mt-6 max-w-xl mx-auto text-slate-600 leading-relaxed text-base md:text-lg">
             We provide opportunities to lead, serve, grow and create lasting
             memories while making a real difference in society.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid md:grid-cols-3 gap-8">
 
@@ -48,34 +53,46 @@ export default function WhyRCMG() {
             const Icon = feature.icon;
 
             return (
-              <motion.div
+              <ScrollReveal
                 key={feature.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15 }}
-                className="
-                  bg-[#f8f6f1]
-                  rounded-[32px]
-                  p-10
-                  shadow-sm
-                  hover:-translate-y-2
-                  transition-all
-                "
+                variant="fade-up"
+                delay={index * 0.1}
+                duration={0.8}
               >
-                <Icon
-                  size={42}
-                  className="text-[#0f172a] mb-6"
-                />
+                <motion.div
+                  whileHover={{
+                    y: -10,
+                    scale: 1.02,
+                    boxShadow: "0 30px 60px -15px rgba(15, 23, 42, 0.08)",
+                  }}
+                  className="
+                    h-full
+                    bg-[#f8f6f1]/60
+                    border
+                    border-black/5
+                    rounded-[32px]
+                    p-10
+                    shadow-sm
+                    transition-all
+                    duration-300
+                  "
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-sm mb-8 border border-black/5">
+                    <Icon
+                      size={28}
+                      className="text-[#0f172a]"
+                    />
+                  </div>
 
-                <h3 className="text-2xl font-bold text-[#0f172a]">
-                  {feature.title}
-                </h3>
+                  <h3 className="text-2xl font-bold text-[#0f172a] tracking-tight">
+                    {feature.title}
+                  </h3>
 
-                <p className="mt-4 text-slate-600 leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
+                  <p className="mt-4 text-slate-600 leading-relaxed text-sm md:text-base">
+                    {feature.description}
+                  </p>
+                </motion.div>
+              </ScrollReveal>
             );
           })}
 

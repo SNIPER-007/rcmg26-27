@@ -48,6 +48,10 @@ export default function Footer() {
                 Achievements
               </Link>
 
+              <Link to="/blogs" className="hover:text-white transition">
+                Blogs
+              </Link>
+
               <Link to="/get-involved" className="hover:text-white transition">
                 Get Involved
               </Link>

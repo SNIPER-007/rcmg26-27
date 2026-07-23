@@ -1,5 +1,7 @@
 import PageTransition from "../components/animations/PageTransition";
 import { Link } from "react-router-dom";
+import ScrollReveal from "../components/ui/ScrollReveal";
+import { motion } from "framer-motion";
 
 const president = {
   name: "Chittansh Pancholi",
@@ -116,35 +118,44 @@ const advisor = {
   image: "/images/team/tisha.jpeg",
 };
 
-function TeamCard({ member, featured = false }) {
+function TeamCard({ member, featured = false, index = 0 }) {
   return (
-    <div
-      className={`bg-white overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
-        featured
-          ? "rounded-3xl shadow-lg ring-2 ring-[#0f172a]/10"
-          : "rounded-3xl shadow-sm"
-      }`}
-    >
-      <img
-        src={member.image}
-        alt={member.name}
-        className="w-full aspect-square object-cover"
-        onError={(e) => {
-          e.target.src =
-            "https://placehold.co/600x600/e2e8f0/475569?text=RCMG";
+    <ScrollReveal variant="fade-up" delay={index * 0.08} duration={0.6}>
+      <motion.div
+        whileHover={{
+          y: -8,
+          scale: 1.015,
+          boxShadow: "0 25px 50px -15px rgba(15, 23, 42, 0.08)",
         }}
-      />
+        className={`group overflow-hidden bg-white border border-black/5 transition-all duration-500 rounded-[32px] ${
+          featured
+            ? "shadow-md ring-1 ring-amber-500/20 bg-gradient-to-b from-white to-amber-50/10"
+            : "shadow-sm"
+        }`}
+      >
+        <div className="overflow-hidden aspect-square relative bg-slate-100">
+          <img
+            src={member.image}
+            alt={member.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            onError={(e) => {
+              e.target.src =
+                "https://placehold.co/600x600/e2e8f0/475569?text=RCMG+Team";
+            }}
+          />
+        </div>
 
-      <div className="p-6">
-        <p className="text-sm uppercase tracking-wider text-slate-500">
-          {member.position}
-        </p>
+        <div className="p-6">
+          <p className="text-xs uppercase tracking-wider font-semibold text-slate-400">
+            {member.position}
+          </p>
 
-        <h3 className="mt-2 text-xl md:text-2xl font-bold text-[#0f172a]">
-          {member.name}
-        </h3>
-      </div>
-    </div>
+          <h3 className="mt-2 text-xl md:text-2xl font-extrabold text-[#0f172a] tracking-tight">
+            {member.name}
+          </h3>
+        </div>
+      </motion.div>
+    </ScrollReveal>
   );
 }
 
@@ -152,27 +163,28 @@ export default function CoreTeam() {
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 pt-40 pb-24">
-        <p className="uppercase tracking-[0.35em] text-sm text-slate-500">
-          Leadership Team
-        </p>
+      <section className="max-w-7xl mx-auto px-6 md:px-8 pt-40 pb-16">
+        <ScrollReveal variant="fade-up" duration={0.8}>
+          <p className="uppercase tracking-[0.35em] text-xs sm:text-sm font-bold text-slate-500">
+            Leadership Team
+          </p>
 
-        <h1 className="mt-4 text-5xl md:text-7xl font-bold text-[#0f172a]">
-          Meet The Team
-        </h1>
+          <h1 className="mt-4 text-5xl md:text-7xl font-bold text-[#0f172a] tracking-tight">
+            Meet The Team
+          </h1>
 
-        <p className="mt-6 max-w-3xl text-lg text-slate-600 leading-relaxed">
-          Behind every project, initiative and achievement is a team
-          of passionate leaders committed to service, fellowship and
-          impact.
-        </p>
+          <p className="mt-6 max-w-3xl text-base md:text-lg text-slate-600 leading-relaxed">
+            Behind every project, initiative and achievement is a team
+            of passionate leaders committed to service, fellowship and
+            impact.
+          </p>
+        </ScrollReveal>
       </section>
 
       {/* Team Toggle */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 pb-12">
-        <div className="flex justify-center">
+      <section className="max-w-7xl mx-auto px-6 md:px-8 pb-16">
+        <ScrollReveal variant="scale" duration={0.6} className="flex justify-center">
           <div className="bg-white rounded-full p-2 shadow-sm border border-slate-200 flex gap-2">
-
             <button
               className="
                 px-6
@@ -181,6 +193,7 @@ export default function CoreTeam() {
                 bg-[#0f172a]
                 text-white
                 font-medium
+                cursor-default
               "
             >
               Core Team
@@ -200,122 +213,141 @@ export default function CoreTeam() {
             >
               Board of Directors
             </Link>
-
           </div>
+        </ScrollReveal>
+      </section>
+
+      {/* Presidential Triad (President, IPP, Secretary) */}
+      <section className="max-w-7xl mx-auto px-6 md:px-8 pb-20">
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0f172a]">
+            Executive Office
+          </h2>
+        </ScrollReveal>
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <TeamCard member={president} featured index={0} />
+          <TeamCard member={ipp} featured index={1} />
+          <TeamCard member={secretary} featured index={2} />
         </div>
       </section>
 
-      {/* President */}
-      <section className="max-w-3xl mx-auto px-6 md:px-8">
-        <TeamCard member={president} featured />
-      </section>
-
-      {/* IPP */}
-      <section className="max-w-3xl mx-auto px-6 md:px-8">
-        <TeamCard member={ipp} featured />
-      </section>
-
-      {/* Secretary */}
-      <section className="max-w-3xl mx-auto px-6 md:px-8">
-        <TeamCard member={secretary} featured />
-      </section>
-
       {/* Vice Presidents */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 py-16">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Vice Presidents
-        </h2>
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-16 border-t border-black/5 bg-[#f8f6f1]/40">
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0f172a]">
+            Vice Presidents
+          </h2>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {vicePresidents.map((member) => (
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {vicePresidents.map((member, i) => (
             <TeamCard
               key={member.name}
               member={member}
+              index={i}
             />
           ))}
         </div>
       </section>
 
       {/* Joint Secretaries */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 py-16">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Joint Secretaries
-        </h2>
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-16 border-t border-black/5 bg-white">
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0f172a]">
+            Joint Secretaries
+          </h2>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {jointSecretaries.map((member) => (
+        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          {jointSecretaries.map((member, i) => (
             <TeamCard
               key={member.name}
               member={member}
+              index={i}
             />
           ))}
         </div>
       </section>
 
       {/* Treasurers */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 py-16">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Treasurers
-        </h2>
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-16 border-t border-black/5 bg-[#f8f6f1]/40">
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0f172a]">
+            Treasurers
+          </h2>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {treasurers.map((member) => (
+        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          {treasurers.map((member, i) => (
             <TeamCard
               key={member.name}
               member={member}
+              index={i}
             />
           ))}
         </div>
       </section>
 
       {/* Sergeant-at-Arms */}
-      <section className="max-w-3xl mx-auto px-6 md:px-8">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Sergeant-at-Arms
-        </h2>
-
-        <TeamCard member={saa} />
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-16 border-t border-black/5 bg-white">
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0f172a]">
+            Sergeant-at-Arms
+          </h2>
+        </ScrollReveal>
+        <div className="max-w-md mx-auto">
+          <TeamCard member={saa} />
+        </div>
       </section>
 
       {/* HRD */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 py-20">
-        <h2 className="text-4xl font-bold text-center">
-          Human Resource Development
-        </h2>
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 border-t border-black/5 bg-[#f8f6f1]/40">
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0f172a]">
+            Human Resource Development
+          </h2>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
-          {hrd.map((member) => (
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {hrd.map((member, i) => (
             <TeamCard
               key={member.name}
               member={member}
+              index={i}
             />
           ))}
         </div>
       </section>
 
       {/* Chairpersons & Avenue Heads */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 py-20">
-        <h2 className="text-4xl font-bold text-center">
-          Chairpersons & Avenue Heads
-        </h2>
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 border-t border-black/5 bg-white">
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0f172a]">
+            Chairpersons & Avenue Heads
+          </h2>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mt-12">
-          {avenues.map((member) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {avenues.map((member, i) => (
             <TeamCard
               key={member.name}
               member={member}
+              index={i}
             />
           ))}
         </div>
       </section>
 
       {/* Club Advisor */}
-      <section className="max-w-3xl mx-auto px-6 md:px-8">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Club Advisor
-        </h2>
-
-        <TeamCard member={advisor} featured />
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-20 border-t border-black/5 bg-[#f8f6f1]/40">
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-[#0f172a]">
+            Club Advisor
+          </h2>
+        </ScrollReveal>
+        <div className="max-w-md mx-auto">
+          <TeamCard member={advisor} featured />
+        </div>
       </section>
     </PageTransition>
   );

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import ScrollReveal from "../ui/ScrollReveal";
 
 const moments = [
   "/images/home/m1.jpg",
@@ -12,20 +13,22 @@ export default function Moments() {
   const duplicatedMoments = [...moments, ...moments];
 
   return (
-    <section className="py-28 overflow-hidden">
+    <section className="py-28 overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
 
-        <p className="uppercase tracking-[0.35em] text-sm text-slate-500 text-center">
-          Our Journey
-        </p>
+        <ScrollReveal variant="fade-up" duration={0.8} className="text-center">
+          <p className="uppercase tracking-[0.35em] text-xs sm:text-sm font-bold text-slate-500">
+            Our Journey
+          </p>
 
-        <h2 className="text-4xl md:text-6xl font-bold text-center mt-4">
-          Moments That Define Us
-        </h2>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-center mt-4">
+            Moments That Define Us
+          </h2>
 
-        <p className="mt-6 text-center text-slate-600 max-w-2xl mx-auto">
-          Memories, impact, friendships and moments that define our journey.
-        </p>
+          <p className="mt-6 text-center text-slate-600 max-w-xl mx-auto text-base md:text-lg">
+            Memories, impact, friendships and moments that define our journey.
+          </p>
+        </ScrollReveal>
 
       </div>
 
