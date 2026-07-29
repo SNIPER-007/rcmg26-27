@@ -146,7 +146,7 @@ export default function Sponsors() {
             </h2>
 
             <p className="mt-6 max-w-3xl mx-auto text-center text-slate-600 leading-relaxed text-base md:text-lg">
-              For nearly four decades, RCMG has connected brands,
+              For nearly two decades, RCMG has connected brands,
               businesses and organizations with a passionate community
               of young leaders, students and professionals through
               impactful events, projects and district-wide initiatives.

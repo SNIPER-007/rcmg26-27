@@ -47,7 +47,7 @@ const timeline = [
     year: "2026-27",
     title: "The Legacy Continues",
     description:
-      "Building upon nearly four decades of service, leadership and fellowship while inspiring the next generation of changemakers.",
+      "Building upon nearly two decades of service, leadership and fellowship while inspiring the next generation of changemakers.",
   },
 ];
 
@@ -215,7 +215,7 @@ export default function About() {
             </p>
 
             <h2 className="text-4xl md:text-6xl font-bold text-center mt-4 tracking-tight">
-              Nearly Four Decades Of Impact
+              Nearly Two Decades Of Impact
             </h2>
           </ScrollReveal>
 

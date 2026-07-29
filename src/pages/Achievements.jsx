@@ -60,7 +60,7 @@ const achievements = [
     icon: Trophy,
     title: "The Legacy Continues",
     description:
-      "Nearly four decades of excellence have shaped the RCMG legacy. In 2026-27, we continue that journey with the same passion, stronger ambition and an unwavering commitment to raise the bar, create greater impact and leave an even bigger mark on the community we serve.",
+      "Nearly two decades of excellence have shaped the RCMG legacy. In 2026-27, we continue that journey with the same passion, stronger ambition and an unwavering commitment to raise the bar, create greater impact and leave an even bigger mark on the community we serve.",
   },
 ];
 
