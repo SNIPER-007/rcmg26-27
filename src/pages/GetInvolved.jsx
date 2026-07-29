@@ -295,7 +295,7 @@ export default function GetInvolved() {
               </h2>
 
               <p className="mt-6 max-w-2xl mx-auto text-slate-300 leading-relaxed text-sm md:text-base">
-                Join a legacy that has empowered 1000+ members since 1987.
+                Join a legacy that has empowered 1000+ members since 2007.
                 Become part of a community that believes in leadership,
                 service, fellowship and creating meaningful impact.
               </p>

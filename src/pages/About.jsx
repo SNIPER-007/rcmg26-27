@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const timeline = [
   {
-    year: "1987",
+    year: "2007",
     title: "Club Chartered",
     description:
       "The Rotaract Club of Mumbai Ghatkopar began its journey, laying the foundation for decades of service and leadership.",
