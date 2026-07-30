@@ -7,7 +7,7 @@ export const blogsData = [
     readTime: "4 min read",
     category: "Leadership",
     excerpt: "How RCMG helps young students and professionals discover their leadership potential and build confidence through action.",
-    coverImage: "/images/blog/featured.jpg",
+    coverImage: "/blogs/blog1/featured.jpg",
     content: [
       {
         type: "paragraph",
@@ -24,7 +24,7 @@ export const blogsData = [
       },
       {
         type: "image",
-        src: "/images/gallery/leadership.jpg",
+        src: "/blogs/blog1/leadership.jpg",
         caption: "RCMG members conducting a professional seminar.",
       },
       {
@@ -33,9 +33,9 @@ export const blogsData = [
       },
     ],
     gallery: [
-      "/images/gallery/leadership.jpg",
-      "/images/gallery/professional.jpg",
-      "/images/gallery/community.jpg",
+      "/blogs/blog1/leadership.jpg",
+      "/blogs/blog1/professional.jpg",
+      "/blogs/blog1/community.jpg",
     ],
     relatedIds: ["uplifting-ghatkopar-service", "fellowship-sports-connections"],
   },
@@ -47,7 +47,7 @@ export const blogsData = [
     readTime: "5 min read",
     category: "Community Service",
     excerpt: "A deep dive into our year-round community service drives, from beach cleanups to educational outreach.",
-    coverImage: "/images/gallery/community.jpg",
+    coverImage: "/blogs/blog2/community.jpg",
     content: [
       {
         type: "paragraph",
@@ -64,7 +64,7 @@ export const blogsData = [
       },
       {
         type: "image",
-        src: "/images/gallery/community.jpg",
+        src: "/blogs/blog2/community.jpg",
         caption: "Volunteers setting up a community service desk.",
       },
       {
@@ -73,9 +73,9 @@ export const blogsData = [
       },
     ],
     gallery: [
-      "/images/gallery/community.jpg",
-      "/images/gallery/international.jpg",
-      "/images/gallery/vision.jpg",
+      "/blogs/blog2/community.jpg",
+      "/blogs/blog2/international.jpg",
+      "/blogs/blog2/vision.jpg",
     ],
     relatedIds: ["empowering-youth-leaders", "fellowship-sports-connections"],
   },
@@ -87,7 +87,7 @@ export const blogsData = [
     readTime: "3 min read",
     category: "Fellowship",
     excerpt: "How sports meets and fellowship retreats build tight-knit bonds and create a vibrant club culture.",
-    coverImage: "/images/gallery/sports.jpg",
+    coverImage: "/blogs/blog3/sports.jpg",
     content: [
       {
         type: "paragraph",
@@ -104,7 +104,7 @@ export const blogsData = [
       },
       {
         type: "image",
-        src: "/images/gallery/sports.jpg",
+        src: "/blogs/blog3/sports.jpg",
         caption: "An energetic sports tournament organized by the Sports Avenue.",
       },
       {
@@ -113,9 +113,9 @@ export const blogsData = [
       },
     ],
     gallery: [
-      "/images/gallery/sports.jpg",
-      "/images/gallery/fellowship.jpg",
-      "/images/gallery/community.jpg",
+      "/blogs/blog3/sports.jpg",
+      "/blogs/blog3/fellowship.jpg",
+      "/blogs/blog3/community.jpg",
     ],
     relatedIds: ["empowering-youth-leaders", "uplifting-ghatkopar-service"],
   },
