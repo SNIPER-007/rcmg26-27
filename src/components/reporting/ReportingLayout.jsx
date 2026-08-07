@@ -1,6 +1,6 @@
-import { Navigate, Outlet, NavLink, useNavigate } from "react-router-dom";
+import { Link, Navigate, Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { LayoutDashboard, FileText, PlusCircle, User, LogOut } from "lucide-react";
+import { ArrowLeft, LayoutDashboard, FileText, PlusCircle, User, LogOut } from "lucide-react";
 
 export default function ReportingLayout() {
   const { user, logout, loading } = useAuth();
@@ -33,7 +33,7 @@ export default function ReportingLayout() {
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-[#0F172A] flex flex-col md:flex-row">
       {/* Sidebar Navigation */}
-      <aside className="w-full md:w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0">
+      <aside className="w-full md:sticky md:top-0 md:h-screen md:w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0">
         <div>
           {/* Logo / Branding */}
           <div className="p-6 border-b border-slate-100 flex items-center gap-3">
@@ -42,6 +42,16 @@ export default function ReportingLayout() {
               <h2 className="font-extrabold text-sm tracking-tight text-[#0F172A]">RCMG Portal</h2>
               <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{user.designation}</p>
             </div>
+          </div>
+
+          <div className="px-4 pt-4">
+            <Link
+              to="/"
+              className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 transition-colors hover:bg-white hover:text-[#0F172A]"
+            >
+              <ArrowLeft size={16} />
+              <span>Back to Home</span>
+            </Link>
           </div>
 
           {/* Navigation Links */}
@@ -91,7 +101,7 @@ export default function ReportingLayout() {
       </aside>
 
       {/* Main Workspace */}
-      <main className="flex-grow p-6 md:p-10 overflow-y-auto max-h-screen">
+      <main className="flex-1 p-6 md:p-10">
         <Outlet />
       </main>
     </div>

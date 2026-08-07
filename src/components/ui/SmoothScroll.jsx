@@ -7,6 +7,20 @@ export default function SmoothScroll() {
   const lenisRef = useRef(null);
 
   useEffect(() => {
+    const isReportingRoute = pathname.startsWith("/reporting");
+
+    document.documentElement.style.scrollBehavior = isReportingRoute ? "auto" : "smooth";
+
+    if (lenisRef.current) {
+      lenisRef.current.destroy();
+      lenisRef.current = null;
+    }
+
+    if (isReportingRoute) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      return undefined;
+    }
+
     const lenis = new Lenis({
       duration: 1.4,
       smoothWheel: true,
@@ -14,24 +28,26 @@ export default function SmoothScroll() {
 
     lenisRef.current = lenis;
 
+    let rafId;
+
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
+
+    window.scrollTo({ top: 0, behavior: "auto" });
 
     return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
       lenis.destroy();
+      if (document.documentElement.style.scrollBehavior === "smooth") {
+        document.documentElement.style.scrollBehavior = "auto";
+      }
     };
-  }, []);
-
-  useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, {
-        immediate: true,
-      });
-    }
   }, [pathname]);
 
   return null;

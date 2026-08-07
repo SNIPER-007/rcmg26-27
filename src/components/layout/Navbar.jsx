@@ -26,11 +26,11 @@ export default function Navbar() {
           left-0
           w-full
           z-50
-          bg-[#f8f6f1]/90
-          backdrop-blur-lg
+          bg-[#f8f6f1]/88
+          backdrop-blur-xl
           border-b
           border-black/5
-          shadow-sm
+          shadow-[0_12px_36px_-24px_rgba(15,23,42,0.45)]
         "
       >
         <div
@@ -48,7 +48,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center"
+            className="flex items-center transition-transform duration-300 hover:scale-[1.01]"
           >
             <img
               src="/images/logo/2026-27.png"
@@ -68,7 +68,7 @@ export default function Navbar() {
               hidden
               md:flex
               items-center
-              gap-12
+              gap-10
             "
           >
             {links.map((link) => (
@@ -78,8 +78,9 @@ export default function Navbar() {
                 className={({ isActive }) =>
                   `
                   relative
-                  text-xl
+                  text-[0.98rem]
                   font-semibold
+                  tracking-tight
                   transition-all
                   duration-300
                   ${
@@ -122,7 +123,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(true)}
-            className="md:hidden"
+            className="md:hidden rounded-full p-2.5 transition-colors hover:bg-black/5"
           >
             <Menu size={32} />
           </button>
@@ -147,14 +148,14 @@ export default function Navbar() {
               flex-col
             "
           >
-            <div className="flex justify-between items-center p-6">
+            <div className="flex justify-between items-center p-6 border-b border-white/10">
               <img
                 src="/images/logo/2026-27.png"
                 alt="RCMG Logo"
                 className="h-16 w-auto"
               />
 
-              <button onClick={() => setMenuOpen(false)}>
+              <button onClick={() => setMenuOpen(false)} className="rounded-full p-2 transition-colors hover:bg-white/10">
                 <X size={36} />
               </button>
             </div>

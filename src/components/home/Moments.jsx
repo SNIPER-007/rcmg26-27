@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import ScrollReveal from "../ui/ScrollReveal";
+import { FloatingSticker } from "../ui/FloatingDecorations";
 
 const moments = [
   "/images/home/m1.jpg",
@@ -13,26 +14,29 @@ export default function Moments() {
   const duplicatedMoments = [...moments, ...moments];
 
   return (
-    <section className="py-28 overflow-hidden bg-white">
+    <section className="relative py-24 md:py-28 overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
 
         <ScrollReveal variant="fade-up" duration={0.8} className="text-center">
-          <p className="uppercase tracking-[0.35em] text-xs sm:text-sm font-bold text-slate-500">
+          <p className="section-label mx-auto">
             Our Journey
           </p>
 
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-center mt-4">
+          <h2 className="section-title text-4xl md:text-6xl font-bold text-center mt-5">
             Moments That Define Us
           </h2>
 
-          <p className="mt-6 text-center text-slate-600 max-w-xl mx-auto text-base md:text-lg">
+          <p className="body-copy mt-6 text-center max-w-xl mx-auto text-base md:text-lg">
             Memories, impact, friendships and moments that define our journey.
           </p>
         </ScrollReveal>
 
       </div>
 
-      <div className="mt-16 overflow-hidden">
+      <FloatingSticker title="Community First" subtitle="RCMG" className="left-[4%] top-[18%] hidden xl:block" />
+      <FloatingSticker title="Impact" subtitle="Gallery" className="right-[4%] bottom-[16%] hidden xl:block" tone="dark" />
+
+      <div className="mt-12 overflow-hidden">
 
         <motion.div
           className="flex gap-8"
@@ -66,6 +70,7 @@ export default function Moments() {
                 overflow-hidden
                 shadow-xl
                 bg-slate-200
+                premium-card
               "
             >
               <img
@@ -101,7 +106,7 @@ export default function Moments() {
                   text-white
                 "
               >
-                <p className="text-lg font-semibold">
+                <p className="text-lg font-semibold tracking-tight">
                   RCMG Memories
                 </p>
               </div>

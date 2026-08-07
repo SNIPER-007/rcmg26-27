@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import PageTransition from "../components/animations/PageTransition";
 import { Users, HeartHandshake, Trophy, X, ChevronLeft, ChevronRight } from "lucide-react";
 import ScrollReveal from "../components/ui/ScrollReveal";
 import ParallaxImage from "../components/ui/ParallaxImage";
 import AnimatedCounter from "../components/ui/AnimatedCounter";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 const timeline = [
   {
@@ -51,8 +51,42 @@ const timeline = [
   },
 ];
 
+function TimelineEntry({ item, index, total, isEven, progress }) {
+  const start = index / total;
+  const end = Math.min(start + 0.08, 1);
+  const opacity = useTransform(progress, [start, start + 0.02, end], [0, 0.95, 1]);
+  const y = useTransform(progress, [start, end], [14, 0]);
+  const x = useTransform(progress, [start, end], [isEven ? 10 : -10, 0]);
+
+  return (
+    <motion.div
+      style={{ opacity, y, x, willChange: "transform, opacity" }}
+      className="relative flex flex-col md:flex-row items-start md:items-center"
+    >
+      <div className="absolute left-4 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-[#0f172a] -translate-x-1/2 z-10 shadow-sm" />
+
+      <div
+        className={`w-full md:w-[calc(50%-32px)] ml-10 md:ml-0 ${isEven ? "md:mr-auto md:text-right" : "md:ml-auto md:text-left"}`}
+      >
+        <div className="bg-[#f8f6f1]/60 border border-black/5 hover:border-black/10 hover:shadow-md transition-all duration-300 rounded-[28px] p-8">
+          <span className="text-3xl font-extrabold text-[#0f172a]">{item.year}</span>
+
+          <h3 className="text-2xl font-bold mt-2 text-[#0f172a] tracking-tight">
+            {item.title}
+          </h3>
+
+          <p className="mt-3 text-slate-600 leading-relaxed text-sm md:text-base">
+            {item.description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function About() {
   const [activeImageIndex, setActiveImageIndex] = useState(null);
+  const timelineSectionRef = useRef(null);
 
   const gallery = [
     {
@@ -93,11 +127,22 @@ export default function About() {
     },
   ];
 
+  const timelineProgress = useScroll({
+    target: timelineSectionRef,
+    offset: ["start 75%", "end 20%"],
+  }).scrollYProgress;
+
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 pt-40 pb-24 md:pt-48 md:pb-32">
-        <ScrollReveal variant="fade-up" duration={0.8}>
+      <section className="max-w-7xl mx-auto px-6 md:px-8 pt-32 pb-20 md:pt-40 md:pb-28">
+        <div className="mb-8 flex flex-wrap items-center gap-3">
+          <span className="section-label bg-white/70">Legacy Since 2007</span>
+          <span className="section-label bg-white/70">Service Driven</span>
+          <span className="section-label bg-white/70">Mumbai Ghatkopar</span>
+        </div>
+
+        <ScrollReveal variant="fade-up" duration={0.65}>
           <p className="uppercase tracking-[0.35em] text-xs sm:text-sm font-bold text-slate-500">
             About Us
           </p>
@@ -105,13 +150,14 @@ export default function About() {
           <h1
             className="
               mt-4
-              text-4xl
-              sm:text-5xl
-              md:text-7xl
+              text-5xl
+              sm:text-6xl
+              md:text-[5.5rem]
               font-bold
               text-[#0f172a]
-              leading-[1.05]
-              tracking-tight
+              leading-[0.96]
+              tracking-[-0.055em]
+              max-w-4xl
             "
           >
             Rotaract Club of
@@ -119,7 +165,7 @@ export default function About() {
             Mumbai Ghatkopar
           </h1>
 
-          <p className="mt-8 max-w-3xl text-base md:text-lg text-slate-600 leading-relaxed">
+          <p className="mt-7 max-w-3xl text-base md:text-lg text-slate-600 leading-relaxed">
             We are a youth-led community of changemakers committed
             to service, leadership, fellowship and personal growth.
             Through impactful projects and meaningful connections,
@@ -131,7 +177,7 @@ export default function About() {
       {/* Who We Are: Split Layout (TEXT | IMAGE) */}
       <section className="max-w-7xl mx-auto px-6 md:px-8 pb-32">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <ScrollReveal variant="fade-right" duration={0.8}>
+          <ScrollReveal variant="fade-right" duration={0.7}>
             <h2 className="text-4xl font-bold text-[#0f172a] tracking-tight">
               Who We Are
             </h2>
@@ -207,63 +253,37 @@ export default function About() {
       </section>
 
       {/* Legacy Timeline: Animated Vertical Timeline */}
-      <section className="py-32 bg-white relative">
+      <section ref={timelineSectionRef} className="py-24 md:py-28 bg-white relative">
         <div className="max-w-6xl mx-auto px-6 md:px-8">
-          <ScrollReveal variant="fade-up" duration={0.8} className="text-center mb-24">
+          <ScrollReveal variant="fade-up" duration={0.55} className="text-center mb-16 md:mb-20">
             <p className="uppercase tracking-[0.35em] text-xs sm:text-sm font-bold text-slate-500">
               Legacy
             </p>
 
-            <h2 className="text-4xl md:text-6xl font-bold text-center mt-4 tracking-tight">
+            <h2 className="text-4xl md:text-6xl font-bold text-center mt-4 tracking-[-0.04em] leading-[1.02] text-[#0f172a]">
               Nearly Two Decades Of Impact
             </h2>
           </ScrollReveal>
 
-          {/* Timeline Layout */}
-          <div className="relative mt-12">
-            {/* Central Vertical Line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-slate-200 -translate-x-1/2" />
+          <div className="relative mt-8 md:mt-12">
+            <motion.div
+              style={{ scaleY: useTransform(timelineProgress, [0, 1], [0.35, 1]), transformOrigin: "top" }}
+              className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-[linear-gradient(180deg,rgba(15,23,42,0.1),rgba(29,78,216,0.5),rgba(245,158,11,0.45))] -translate-x-1/2"
+            />
 
-            <div className="space-y-12">
+            <div className="space-y-10 md:space-y-12">
               {timeline.map((item, index) => {
                 const isEven = index % 2 === 0;
 
                 return (
-                  <div
-                    key={index}
-                    className="relative flex flex-col md:flex-row items-start md:items-center"
-                  >
-                    {/* Circle Pin on line */}
-                    <div className="absolute left-4 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-[#0f172a] -translate-x-1/2 z-10 shadow-sm" />
-
-                    {/* Timeline card block */}
-                    <div
-                      className={`
-                        w-full md:w-[calc(50%-32px)] 
-                        ml-10 md:ml-0 
-                        ${isEven ? "md:mr-auto md:text-right" : "md:ml-auto md:text-left"}
-                      `}
-                    >
-                      <ScrollReveal
-                        variant={isEven ? "fade-right" : "fade-left"}
-                        duration={0.8}
-                      >
-                        <div className="bg-[#f8f6f1]/60 border border-black/5 hover:border-black/10 hover:shadow-md transition-all duration-300 rounded-[28px] p-8">
-                          <span className="text-3xl font-extrabold text-[#0f172a]">
-                            {item.year}
-                          </span>
-                          
-                          <h3 className="text-2xl font-bold mt-2 text-[#0f172a] tracking-tight">
-                            {item.title}
-                          </h3>
-
-                          <p className="mt-3 text-slate-600 leading-relaxed text-sm md:text-base">
-                            {item.description}
-                          </p>
-                        </div>
-                      </ScrollReveal>
-                    </div>
-                  </div>
+                  <TimelineEntry
+                    key={item.year}
+                    item={item}
+                    index={index}
+                    total={timeline.length}
+                    isEven={isEven}
+                    progress={timelineProgress}
+                  />
                 );
               })}
             </div>
@@ -289,7 +309,6 @@ export default function About() {
             </p>
           </ScrollReveal>
 
-          {/* Masonry / Grid Gallery */}
           <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 mt-16">
             {gallery.map((item, index) => (
               <ScrollReveal
@@ -324,28 +343,28 @@ export default function About() {
                     />
                   </div>
 
-                  {/* Hover Overlay */}
-                  <div className="
-                    absolute
-                    inset-0
-                    bg-gradient-to-t
-                    from-black/85
-                    via-black/30
-                    to-transparent
-                    opacity-0
-                    group-hover:opacity-100
-                    transition-opacity
-                    duration-300
-                    flex
-                    flex-col
-                    justify-end
-                    p-8
-                  "
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      bg-gradient-to-t
+                      from-black/85
+                      via-black/30
+                      to-transparent
+                      opacity-0
+                      group-hover:opacity-100
+                      transition-opacity
+                      duration-300
+                      flex
+                      flex-col
+                      justify-end
+                      p-8
+                    "
                   >
                     <h3 className="text-2xl font-bold text-white tracking-tight transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                       {item.title}
                     </h3>
-                    
+
                     <p className="mt-2 text-slate-200 text-sm leading-relaxed transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
                       {item.description}
                     </p>

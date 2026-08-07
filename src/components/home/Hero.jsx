@@ -1,50 +1,103 @@
 import { motion } from "framer-motion";
-import { Spark, DotGrid, RotaryGear, CurvedLine } from "../ui/FloatingDecorations";
+import ScrollReveal from "../ui/ScrollReveal";
+import { Spark, DotGrid, RotaryGear, CurvedLine, FloatingSticker } from "../ui/FloatingDecorations";
 
 export default function Hero() {
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1], // out-expo
-      },
-    },
-  };
+  const wheelText = "Rotaract Club of Mumbai Ghatkopar";
+  const yearText = "2026-27";
 
   return (
-    <section className="relative px-8 py-36 md:py-48 overflow-hidden bg-[#f8f6f1]">
+    <section className="relative px-8 py-32 md:py-40 overflow-hidden bg-[#f8f6f1]">
       
       {/* Premium Background Mesh & Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#e2ded5]/40 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-amber-100/25 blur-[120px] rounded-full pointer-events-none" />
-      
-      {/* Subtle Floating Graphics */}
-      <RotaryGear className="absolute top-[12%] right-[-50px] md:right-[5%] opacity-40" />
-      <DotGrid className="absolute left-[8%] top-[25%] opacity-30 hidden md:block" />
-      <Spark className="absolute left-[12%] bottom-[20%] opacity-40 text-amber-600/30" />
-      <Spark className="absolute right-[15%] top-[20%] opacity-40 text-slate-800/30" delay={2} />
-      <CurvedLine className="absolute bottom-[10%] left-[5%] opacity-20 hidden lg:block" />
+      <div className="absolute top-[-10%] left-[-10%] w-[52%] h-[52%] bg-[#dfe9ff]/55 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[52%] h-[52%] bg-amber-100/30 blur-[140px] rounded-full pointer-events-none" />
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="max-w-6xl mx-auto text-center relative z-10 flex flex-col items-center"
-      >
-        <motion.p
-          variants={itemVariants}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(37,99,235,0.04),transparent_26%),radial-gradient(circle_at_50%_75%,rgba(245,158,11,0.04),transparent_28%)] pointer-events-none" />
+
+      {/* Restored Hero Accents */}
+      <DotGrid className="absolute left-[7%] top-[22%] opacity-30 hidden md:block" />
+      <Spark className="absolute left-[10%] bottom-[22%] opacity-45 text-[#1d4ed8] hidden lg:block" />
+      <Spark className="absolute right-[14%] top-[18%] opacity-45 text-[#f59e0b] hidden lg:block" delay={2} />
+      <CurvedLine className="absolute bottom-[11%] left-[5%] opacity-20 hidden lg:block" />
+
+      <FloatingSticker title="District 3141" subtitle="Rotaract" className="top-[8%] left-[3%] hidden 2xl:block" />
+      <FloatingSticker title="Since 2007" subtitle="Legacy" className="top-[14%] right-[3%] hidden 2xl:block" tone="dark" />
+      <FloatingSticker title="Leadership • Service • Fellowship" subtitle="RCMG" className="bottom-[10%] left-[4%] hidden xl:block" />
+      <FloatingSticker title="1000+ Leaders" subtitle="Community" className="right-[8%] bottom-[14%] hidden 2xl:block" />
+      <FloatingSticker title="120+ Collaborations" subtitle="Impact" className="left-[10%] top-[16%] hidden 2xl:block" tone="dark" />
+
+      <motion.div className="absolute right-[7%] top-[14%] hidden xl:block pointer-events-none">
+        <div className="relative h-[360px] w-[360px]">
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.8),rgba(255,255,255,0.18)_55%,transparent_74%)] shadow-[0_32px_72px_-44px_rgba(15,23,42,0.6)]" />
+          <div className="absolute inset-[8px] rounded-full border border-[#1d4ed8]/10 bg-[radial-gradient(circle,rgba(255,255,255,0.16),transparent_65%)]" />
+          <div className="absolute inset-[22px] rounded-full border border-[#1d4ed8]/14" />
+
+          <div className="absolute inset-[56px] rounded-full border-[3px] border-[#0f172a]" />
+          <div className="absolute inset-[106px] rounded-full border border-[#f59e0b]/26" />
+
+          <motion.div
+            animate={{ opacity: [0.62, 0.82, 0.62], scale: [0.985, 1, 0.985] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-[84px] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.18),rgba(245,158,11,0.05)_45%,rgba(255,255,255,0)_72%)]"
+          />
+
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 64, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-[12px] rounded-full"
+          >
+            <svg
+              viewBox="0 0 360 360"
+              className="absolute inset-0 h-full w-full"
+              aria-hidden="true"
+            >
+              <defs>
+                <path
+                  id="hero-outer-ring"
+                  d="M 180,32 a 148,148 0 1,1 0,296 a 148,148 0 1,1 0,-296"
+                />
+              </defs>
+              <text
+                className="fill-[#1d4ed8]"
+                fontSize="11"
+                fontWeight="800"
+                letterSpacing="2.3"
+                textAnchor="middle"
+              >
+                <textPath href="#hero-outer-ring" startOffset="50%">
+                  {wheelText} 2026-27 {wheelText} 2026-27 {wheelText} 2026-27 {wheelText} 2026-27
+                </textPath>
+              </text>
+            </svg>
+          </motion.div>
+
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-[88px] rounded-full"
+          >
+            <RotaryGear className="absolute inset-0 h-full w-full text-[#f59e0b] opacity-95" />
+          </motion.div>
+        </div>
+      </motion.div>
+
+      <motion.div className="absolute left-[4%] top-[26%] hidden xl:flex flex-col items-start gap-4 pointer-events-none">
+        <FloatingSticker title="Building" subtitle="Impact" className="static" />
+        <div className="flex items-center gap-3 pl-2">
+          <Spark className="opacity-60 text-[#1d4ed8]" />
+          <Spark className="opacity-35 text-[#f59e0b]" delay={1.5} />
+        </div>
+        <div className="flex items-center gap-4">
+          <DotGrid className="opacity-35 scale-75 -translate-x-1" />
+          <CurvedLine className="hidden xl:block opacity-20 w-[180px] h-[60px]" />
+        </div>
+      </motion.div>
+
+      <div className="max-w-6xl mx-auto text-center relative z-10 flex flex-col items-center pt-8 xl:pt-0">
+        <ScrollReveal
+          variant="fade-up"
+          duration={0.8}
           className="
             uppercase
             tracking-[0.45em]
@@ -55,31 +108,34 @@ export default function Hero() {
           "
         >
           Rotaract Club of Mumbai Ghatkopar
-        </motion.p>
+        </ScrollReveal>
 
-        <motion.h1
-          variants={itemVariants}
+        <ScrollReveal
+          variant="blur"
+          duration={0.9}
           className="
             mt-10
             text-6xl
             md:text-8xl
             lg:text-[120px]
             font-bold
-            leading-[0.95]
-            tracking-tight
+            leading-[0.9]
+            tracking-[-0.05em]
             text-[#0f172a]
             max-w-4xl
           "
         >
           Building
           <br />
-          <span className="bg-gradient-to-r from-[#7C3AED] via-[#2563EB] to-[#EC4899] bg-clip-text text-transparent">
+          <span className="gradient-text">
             Impact
           </span>
-        </motion.h1>
+        </ScrollReveal>
 
-        <motion.p
-          variants={itemVariants}
+        <ScrollReveal
+          variant="fade-up"
+          delay={0.08}
+          duration={0.8}
           className="
             mt-10
             max-w-2xl
@@ -91,10 +147,12 @@ export default function Hero() {
         >
           A youth-driven community creating lasting impact through leadership, 
           social service, fellowship, and professional development.
-        </motion.p>
+        </ScrollReveal>
 
-        <motion.div
-          variants={itemVariants}
+        <ScrollReveal
+          variant="scale"
+          delay={0.12}
+          duration={0.75}
           className="mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <motion.button
@@ -108,7 +166,7 @@ export default function Hero() {
               px-10
               py-5
               rounded-full
-              btn-animated-gradient
+              btn-animated-gradient premium-button
               text-white
               font-semibold
               shadow-lg
@@ -145,9 +203,9 @@ export default function Hero() {
           >
             Join the Club
           </motion.a>
-        </motion.div>
+        </ScrollReveal>
 
-      </motion.div>
+      </div>
     </section>
   );
 }

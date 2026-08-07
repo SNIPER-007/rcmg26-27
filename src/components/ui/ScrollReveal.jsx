@@ -51,7 +51,7 @@ export default function ScrollReveal({
       viewport={{ once, margin: "-20px", amount: threshold }}
       variants={getVariants()}
       transition={{
-        duration,
+        duration: duration * 1.08,
         delay,
         ease: [0.16, 1, 0.3, 1], // premium custom bezier curve (out-expo)
       }}

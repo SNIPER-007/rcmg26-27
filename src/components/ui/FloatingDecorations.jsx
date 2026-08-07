@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function Spark({ className = "", delay = 0 }) {
   return (
@@ -8,7 +8,7 @@ export function Spark({ className = "", delay = 0 }) {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`text-[#0f172a]/10 ${className}`}
+      className={`text-[#0f172a]/16 ${className}`}
       animate={{
         scale: [1, 1.2, 1],
         opacity: [0.3, 0.6, 0.3],
@@ -34,7 +34,7 @@ export function DotGrid({ className = "" }) {
     <svg
       width="100"
       height="100"
-      className={`text-[#0f172a]/5 ${className}`}
+      className={`text-[#0f172a]/10 ${className}`}
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -63,7 +63,7 @@ export function RotaryGear({ className = "" }) {
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`text-[#0f172a]/3 ${className}`}
+      className={`text-[#0f172a]/6 ${className}`}
       animate={{
         rotate: 360,
       }}
@@ -113,7 +113,7 @@ export function CurvedLine({ className = "" }) {
       viewBox="0 0 300 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`text-[#0f172a]/5 ${className}`}
+      className={`text-[#0f172a]/9 ${className}`}
     >
       <path
         d="M0 50 C 75 10, 75 90, 150 50 C 225 10, 225 90, 300 50"
@@ -125,9 +125,49 @@ export function CurvedLine({ className = "" }) {
   );
 }
 
+export function FloatingSticker({
+  title,
+  subtitle,
+  className = "",
+  tone = "light",
+}) {
+  const toneClass = tone === "dark" ? "premium-sticker-dark" : "premium-sticker";
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.5, 0.95], [1, 0.96, 0.72, 0.45]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -8]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      className={`absolute ${className}`}
+    >
+      <motion.div
+        style={{ opacity, y, willChange: "transform, opacity" }}
+        className={`${toneClass} rounded-[24px] px-4 py-3`}
+      >
+        <div className="flex items-start gap-3">
+          <span className="mt-1 h-2.5 w-2.5 rounded-full bg-[#1d4ed8] shadow-[0_0_0_6px_rgba(29,78,216,0.12)]" />
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-slate-400">
+              {subtitle}
+            </p>
+            <p className="mt-1 text-sm font-semibold tracking-tight text-slate-900">
+              {title}
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function FloatingDecorations() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(37,99,235,0.06),transparent_28%),radial-gradient(circle_at_80%_18%,rgba(245,158,11,0.07),transparent_26%),radial-gradient(circle_at_50%_92%,rgba(15,23,42,0.03),transparent_32%)]" />
+
       {/* Sparkles */}
       <Spark className="absolute top-[15%] left-[8%]" delay={0} />
       <Spark className="absolute bottom-[20%] right-[10%]" delay={2} />
@@ -135,15 +175,39 @@ export default function FloatingDecorations() {
 
       {/* Gears / Rotaract reference */}
       <RotaryGear className="absolute top-[10%] -right-16 md:right-10" />
-      <RotaryGear className="absolute -bottom-16 -left-16 opacity-75" />
+      <RotaryGear className="absolute -bottom-16 -left-16 opacity-80" />
 
       {/* Dot Grid */}
-      <DotGrid className="absolute top-[40%] left-[5%] opacity-50" />
-      <DotGrid className="absolute bottom-[40%] right-[5%] opacity-50" />
+      <DotGrid className="absolute top-[40%] left-[5%] opacity-60" />
+      <DotGrid className="absolute bottom-[40%] right-[5%] opacity-60" />
 
       {/* Curved Paths */}
       <CurvedLine className="absolute top-[30%] right-[20%] hidden md:block" />
       <CurvedLine className="absolute bottom-[25%] left-[20%] hidden md:block" />
+
+      {/* Floating informational stickers */}
+      <FloatingSticker
+        title="District 3141"
+        subtitle="Rotaract Network"
+        className="top-[12%] left-[6%] hidden lg:block"
+      />
+      <FloatingSticker
+        title="Since 2007"
+        subtitle="Legacy"
+        className="top-[22%] right-[8%] hidden xl:block"
+        tone="dark"
+      />
+      <FloatingSticker
+        title="Service • Leadership • Fellowship"
+        subtitle="RCMG"
+        className="bottom-[18%] left-[8%] hidden lg:block"
+      />
+      <FloatingSticker
+        title="Mumbai Ghatkopar"
+        subtitle="Community"
+        className="bottom-[14%] right-[8%] hidden xl:block"
+        tone="dark"
+      />
     </div>
   );
 }

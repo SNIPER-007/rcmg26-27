@@ -1,28 +1,29 @@
 import { Link } from "react-router-dom";
+import { FiMail } from "react-icons/fi";
+import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0f172a] text-white mt-24">
-      <div className="max-w-7xl mx-auto px-6 md:px-8 py-16">
+    <footer className="bg-[#0f172a] text-white mt-32 md:mt-40">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20">
 
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-3 gap-12 md:gap-16">
 
           {/* Brand */}
-          <div>
+          <div className="space-y-5">
             <img
-  src="/images/logo/2026-27.png"
-  alt="RCMG Logo"
-  className="
-    h-24
-    w-auto
-    object-contain
-  "
-/>
+              src="/images/logo/2026-27.png"
+              alt="RCMG Logo"
+              className="h-24 w-auto object-contain"
+            />
+            <p className="max-w-sm text-sm leading-relaxed text-slate-300">
+              Rotaract Club of Mumbai Ghatkopar is a youth-led community focused on service, leadership, and lasting impact.
+            </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-semibold">
+            <h3 className="text-xl font-semibold tracking-tight">
               Quick Links
             </h3>
 
@@ -61,7 +62,7 @@ export default function Footer() {
 
           {/* Connect */}
           <div>
-            <h3 className="text-xl font-semibold">
+            <h3 className="text-xl font-semibold tracking-tight">
               Connect With Us
             </h3>
 
@@ -71,25 +72,28 @@ export default function Footer() {
                 href="https://instagram.com/rotaractghatkopar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white transition"
+                className="flex items-center gap-3 hover:text-white transition"
               >
-                Instagram
+                <FaInstagram size={18} />
+                <span>Instagram</span>
               </a>
 
               <a
                 href="https://www.linkedin.com/company/rotaractclubofmumbaighatkopar/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white transition"
+                className="flex items-center gap-3 hover:text-white transition"
               >
-                LinkedIn
+                <FaLinkedinIn size={18} />
+                <span>LinkedIn</span>
               </a>
 
               <a
                 href="mailto:rtr.chittanshpancholi@gmail.com"
-                className="hover:text-white transition"
+                className="flex items-center gap-3 hover:text-white transition"
               >
-                Email
+                <FiMail size={18} />
+                <span>Email</span>
               </a>
 
             </div>

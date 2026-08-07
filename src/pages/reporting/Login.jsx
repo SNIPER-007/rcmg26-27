@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import ScrollReveal from "../../components/ui/ScrollReveal";
-import { ShieldAlert, LogIn } from "lucide-react";
+import { ArrowLeft, ShieldAlert, LogIn } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Login() {
@@ -36,6 +36,14 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center p-6 relative overflow-hidden">
+      <Link
+        to="/"
+        className="absolute left-6 top-6 z-20 flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm backdrop-blur transition-colors hover:text-[#0F172A] hover:bg-white"
+      >
+        <ArrowLeft size={16} />
+        <span>Back to Home</span>
+      </Link>
+
       {/* Background blobs */}
       <div className="absolute top-[20%] left-[20%] w-[350px] h-[350px] bg-[#7C3AED]/5 blur-[100px] rounded-full pointer-events-none animate-blob" />
       <div className="absolute bottom-[20%] right-[20%] w-[350px] h-[350px] bg-[#EC4899]/5 blur-[100px] rounded-full pointer-events-none animate-blob-delayed" />
