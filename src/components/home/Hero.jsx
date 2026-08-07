@@ -3,8 +3,7 @@ import ScrollReveal from "../ui/ScrollReveal";
 import { Spark, DotGrid, RotaryGear, CurvedLine, FloatingSticker } from "../ui/FloatingDecorations";
 
 export default function Hero() {
-  const wheelText = "Rotaract Club of Mumbai Ghatkopar";
-  const yearText = "2026-27";
+  const ringText = "Rotaract Club of Mumbai Ghatkopar 2026-27 Rotaract Club of Mumbai Ghatkopar 2026-27";
 
   return (
     <section className="relative px-8 py-32 md:py-40 overflow-hidden bg-[#f8f6f1]">
@@ -64,11 +63,12 @@ export default function Hero() {
                     className="fill-[#1d4ed8]"
                     fontSize="10"
                     fontWeight="800"
-                    letterSpacing="1.6"
+                    letterSpacing="1.4"
                     textAnchor="middle"
+                    lengthAdjust="spacingAndGlyphs"
                   >
-                    <textPath href="#hero-outer-ring" startOffset="50%">
-                      {wheelText} 2026-27 {wheelText} 2026-27 {wheelText} 2026-27 {wheelText} 2026-27
+                    <textPath href="#hero-outer-ring" startOffset="50%" method="align">
+                      {ringText}
                     </textPath>
                   </text>
                 </svg>
