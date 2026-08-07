@@ -73,7 +73,7 @@ export default function Hero() {
         >
           Building
           <br />
-          <span className="bg-gradient-to-r from-[#0f172a] via-[#334155] to-[#475569] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#7C3AED] via-[#2563EB] to-[#EC4899] bg-clip-text text-transparent">
             Impact
           </span>
         </motion.h1>
@@ -108,7 +108,7 @@ export default function Hero() {
               px-10
               py-5
               rounded-full
-              bg-[#0f172a]
+              btn-animated-gradient
               text-white
               font-semibold
               shadow-lg

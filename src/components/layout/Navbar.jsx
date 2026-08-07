@@ -13,6 +13,7 @@ export default function Navbar() {
     { name: "Sponsors", path: "/sponsors" },
     { name: "Achievements", path: "/achievements" },
     { name: "Blogs", path: "/blogs" },
+    { name: "Reporting", path: "/reporting/login" },
     { name: "Get Involved", path: "/get-involved" },
   ];
 

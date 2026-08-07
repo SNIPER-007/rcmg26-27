@@ -1,17 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-bg: #FAF7F2;
+  --color-brand-purple: #7C3AED;
+  --color-brand-blue: #2563EB;
+  --color-brand-cyan: #06B6D4;
+  --color-brand-pink: #EC4899;
+  --color-brand-accent: #F59E0B;
+  --color-brand-text: #0F172A;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background: #f8f6f1;
-  color: #0f172a;
+  background: #FAF7F2;
+  color: #0F172A;
   font-family:
     Inter,
     system-ui,
     sans-serif;
+  overflow-x: hidden;
 }
 
 * {
@@ -21,4 +32,70 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* Glassmorphism Styles */
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.glassmorphism-dark {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Gradient Heading */
+.gradient-text {
+  background: linear-gradient(135deg, #7C3AED, #2563EB, #06B6D4, #EC4899);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated Gradient Hover for buttons */
+.btn-animated-gradient {
+  background: linear-gradient(135deg, #7C3AED, #2563EB, #EC4899);
+  background-size: 200% 200%;
+  transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-animated-gradient:hover {
+  background-position: 100% 100%;
+  box-shadow: 0 10px 20px -10px rgba(124, 58, 237, 0.5);
+}
+
+/* Blob Animation Keyframes */
+@keyframes float-blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: float-blob 12s infinite alternate ease-in-out;
+}
+
+.animate-blob-delayed {
+  animation: float-blob 16s infinite alternate-reverse ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
