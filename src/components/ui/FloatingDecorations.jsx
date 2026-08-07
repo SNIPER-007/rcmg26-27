@@ -142,6 +142,7 @@ export function FloatingSticker({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       className={`absolute ${className}`}
+      style={{ transform: "scale(0.78)", transformOrigin: "center" }}
     >
       <motion.div
         style={{ opacity, y, willChange: "transform, opacity" }}
