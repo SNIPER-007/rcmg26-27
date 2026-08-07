@@ -29,23 +29,20 @@ export default function Hero() {
 
       <motion.div className="absolute right-[7%] top-[14%] hidden xl:block pointer-events-none">
         <div className="relative h-[360px] w-[360px]">
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.8),rgba(255,255,255,0.18)_55%,transparent_74%)] shadow-[0_32px_72px_-44px_rgba(15,23,42,0.6)]" />
-          <div className="absolute inset-[8px] rounded-full border border-[#1d4ed8]/10 bg-[radial-gradient(circle,rgba(255,255,255,0.16),transparent_65%)]" />
-          <div className="absolute inset-[22px] rounded-full border border-[#1d4ed8]/14" />
-
-          <div className="absolute inset-[56px] rounded-full border-[3px] border-[#0f172a]" />
-          <div className="absolute inset-[106px] rounded-full border border-[#f59e0b]/26" />
+          <div className="absolute inset-[22px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.84),rgba(255,255,255,0.2)_58%,transparent_76%)] shadow-[0_24px_56px_-40px_rgba(15,23,42,0.48)]" />
+          <div className="absolute inset-[34px] rounded-full border border-[#1d4ed8]/10" />
+          <div className="absolute inset-[46px] rounded-full border border-[#1d4ed8]/14" />
 
           <motion.div
-            animate={{ opacity: [0.62, 0.82, 0.62], scale: [0.985, 1, 0.985] }}
+            animate={{ opacity: [0.52, 0.72, 0.52], scale: [0.992, 1, 0.992] }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[84px] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.18),rgba(245,158,11,0.05)_45%,rgba(255,255,255,0)_72%)]"
+            className="absolute inset-[96px] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.14),rgba(245,158,11,0.04)_45%,rgba(255,255,255,0)_72%)]"
           />
 
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 64, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[12px] rounded-full"
+            transition={{ duration: 66, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 rounded-full"
           >
             <svg
               viewBox="0 0 360 360"
@@ -55,14 +52,14 @@ export default function Hero() {
               <defs>
                 <path
                   id="hero-outer-ring"
-                  d="M 180,32 a 148,148 0 1,1 0,296 a 148,148 0 1,1 0,-296"
+                  d="M 180,68 a 112,112 0 1,1 0,224 a 112,112 0 1,1 0,-224"
                 />
               </defs>
               <text
                 className="fill-[#1d4ed8]"
-                fontSize="11"
+                fontSize="10"
                 fontWeight="800"
-                letterSpacing="2.3"
+                letterSpacing="1.6"
                 textAnchor="middle"
               >
                 <textPath href="#hero-outer-ring" startOffset="50%">
@@ -72,10 +69,12 @@ export default function Hero() {
             </svg>
           </motion.div>
 
+          <div className="absolute inset-[88px] rounded-full border-[2px] border-[#0f172a]" />
+
           <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[88px] rounded-full"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-[104px] rounded-full"
           >
             <RotaryGear className="absolute inset-0 h-full w-full text-[#f59e0b] opacity-95" />
           </motion.div>
