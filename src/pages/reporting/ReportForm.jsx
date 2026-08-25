@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { doc, getDoc, setDoc, addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { useAuth } from "../../contexts/AuthContext";
-import ScrollReveal from "../../components/ui/ScrollReveal";
-import { Save, ArrowLeft, AlertCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { Save, ArrowLeft, AlertCircle, Search, UserCheck, X } from "lucide-react";
 
 const avenuesList = [
   "Community Service",
@@ -30,7 +28,7 @@ export default function ReportForm() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [chairpersons, setChairpersons] = useState([]);
+  const [allMembers, setAllMembers] = useState([]);
 
   // Form Fields State
   const [projectName, setProjectName] = useState("");
@@ -59,6 +57,24 @@ export default function ReportForm() {
   const [riYear, setRiYear] = useState("2026-27");
   const [reportedBy, setReportedBy] = useState("");
 
+  // Attendance Multi-Select State
+  const [selectedAttendedMembers, setSelectedAttendedMembers] = useState([]);
+  const [attendanceSearch, setAttendanceSearch] = useState("");
+  const [isAttendanceDropdownOpen, setIsAttendanceDropdownOpen] = useState(false);
+
+  const dropdownRef = useRef(null);
+
+  // Close attendance dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsAttendanceDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   // Calculate Quarter automatically
   const getQuarterFromDate = (dateString) => {
     if (!dateString) return 1;
@@ -75,23 +91,46 @@ export default function ReportForm() {
   const calculatedQuarter = getQuarterFromDate(startDate);
   const calculatedProfit = parseFloat(income || 0) + parseFloat(sponsorship || 0) - parseFloat(expense || 0);
 
-  // Load Chairpersons and Event data if in Edit Mode
+  // Auto-calculate Club Attendance Count & Total Man Hours dynamically
+  useEffect(() => {
+    const memberCount = selectedAttendedMembers.length;
+    // Set club attendance to selected members count if any members are selected
+    if (memberCount > 0) {
+      setAttendance(memberCount);
+    }
+    const hrs = parseFloat(projectHours || 0);
+    const ext = parseFloat(attendees || 0);
+    const calculatedManHrs = (memberCount + ext) * hrs;
+    setTotalManHours(calculatedManHrs);
+  }, [selectedAttendedMembers, attendees, projectHours]);
+
+  // Load Members from users collection and Event data if in Edit Mode
   useEffect(() => {
     async function initForm() {
       try {
-        // Load users for chairperson dropdown
+        // Load users from Firestore users collection for chairperson selection and attendance tracking
         const usersRef = collection(db, "users");
         const usersSnap = await getDocs(usersRef);
         const usersList = [];
         usersSnap.forEach((docSnap) => {
           const u = docSnap.data();
-          usersList.push({ username: docSnap.id, name: u.name || docSnap.id });
+          if (!u._placeholder) {
+            usersList.push({
+              id: docSnap.id,
+              username: u.username || docSnap.id,
+              name: u.name || docSnap.id,
+              designation: u.designation || "",
+              category: u.category || "CORE",
+            });
+          }
         });
-        setChairpersons(usersList);
-        
+
+        usersList.sort((a, b) => a.name.localeCompare(b.name));
+        setAllMembers(usersList);
+
         // Default chairperson to logged in user if creating
         if (!id) {
-          setChairperson(user.username);
+          setChairperson(user.username || user.id || "");
         }
 
         // If Edit Mode, load event doc
@@ -106,16 +145,16 @@ export default function ReportForm() {
 
           const evt = eventSnap.data();
 
-          // Check security access: President or Owner only
-          const isPresident = user.role.toLowerCase() === "president";
-          const isOwner = evt.reportedBy === user.username;
+          // Security check: President or Owner only
+          const isPresident = user.role && user.role.toLowerCase() === "president";
+          const isOwner = evt.reportedBy === user.username || evt.reportedById === user.id;
           if (!isPresident && !isOwner) {
             setError("Security restriction: You are not authorized to edit this report.");
             setLoading(false);
             return;
           }
 
-          // Set states
+          // Populate states
           setProjectName(evt.projectName || evt.title || "");
           setVenue(evt.venue || "");
           setStartDate(evt.startDate || "");
@@ -130,7 +169,7 @@ export default function ReportForm() {
           setProcessExecution(evt.processExecution || "");
           setImpactAnalysis(evt.impactAnalysis || "");
           setFollowUp(evt.followUp || "");
-          setChairperson(evt.chairperson || "");
+          setChairperson(evt.chairperson || evt.chairpersonId || "");
           setImageUrls(evt.images ? evt.images.join(", ") : "");
           setIncome(evt.income || 0);
           setExpense(evt.expense || 0);
@@ -141,6 +180,10 @@ export default function ReportForm() {
           setZone(evt.zone || "Zone 3B");
           setRiYear(evt.riYear || "2026-27");
           setReportedBy(evt.reportedBy || "");
+
+          if (evt.attendedMembers && Array.isArray(evt.attendedMembers)) {
+            setSelectedAttendedMembers(evt.attendedMembers);
+          }
         }
       } catch (err) {
         console.error("Error loading form dependencies:", err);
@@ -152,6 +195,40 @@ export default function ReportForm() {
     initForm();
   }, [id, user]);
 
+  // Handle adding an attended member to the bubble list
+  const handleAddAttendedMember = (member) => {
+    const exists = selectedAttendedMembers.some(
+      (m) => m.id === member.id || m.username === member.username
+    );
+    if (!exists) {
+      setSelectedAttendedMembers((prev) => [...prev, member]);
+    }
+    setAttendanceSearch("");
+    setIsAttendanceDropdownOpen(false);
+  };
+
+  // Handle removing an attended member bubble
+  const handleRemoveAttendedMember = (memberId) => {
+    setSelectedAttendedMembers((prev) =>
+      prev.filter((m) => m.id !== memberId && m.username !== memberId)
+    );
+  };
+
+  // Filter members list for attendance search
+  const matchingMembersForAttendance = allMembers.filter((m) => {
+    const isAlreadySelected = selectedAttendedMembers.some(
+      (selected) => selected.id === m.id || (selected.username && selected.username === m.username)
+    );
+    if (isAlreadySelected) return false;
+    if (!attendanceSearch.trim()) return true;
+    const query = attendanceSearch.toLowerCase().trim();
+    return (
+      m.name.toLowerCase().includes(query) ||
+      (m.username && m.username.toLowerCase().includes(query)) ||
+      (m.designation && m.designation.toLowerCase().includes(query))
+    );
+  });
+
   const handleSave = async (e) => {
     e.preventDefault();
     setError("");
@@ -161,9 +238,15 @@ export default function ReportForm() {
       ? imageUrls.split(",").map((url) => url.trim()).filter((url) => url !== "")
       : [];
 
+    const selectedChairpersonObj = allMembers.find(
+      (c) => c.username === chairperson || c.id === chairperson
+    );
+    const chairpersonName = selectedChairpersonObj ? selectedChairpersonObj.name : chairperson;
+    const chairpersonId = selectedChairpersonObj ? selectedChairpersonObj.id : chairperson;
+
     const reportData = {
       projectName,
-      title: projectName, // for backwards compatibility
+      title: projectName,
       venue,
       startDate,
       endDate,
@@ -179,13 +262,16 @@ export default function ReportForm() {
       impactAnalysis,
       followUp,
       chairperson,
+      chairpersonId,
+      chairpersonName,
       images: imagesArray,
       income: parseFloat(income || 0),
       expense: parseFloat(expense || 0),
       sponsorship: parseFloat(sponsorship || 0),
       profit: calculatedProfit,
-      attendance: parseInt(attendance || 0, 10),
+      attendance: parseInt(attendance || selectedAttendedMembers.length, 10),
       attendees: parseInt(attendees || 0, 10),
+      attendedMembers: selectedAttendedMembers,
       clubName,
       club: clubName,
       zone,
@@ -198,16 +284,22 @@ export default function ReportForm() {
       if (id) {
         // Edit Mode
         const eventRef = doc(db, "events", id);
-        await setDoc(eventRef, {
-          ...reportData,
-          reportedBy: reportedBy || user.username,
-        }, { merge: true });
+        await setDoc(
+          eventRef,
+          {
+            ...reportData,
+            reportedBy: reportedBy || user.username,
+            reportedById: user.id || user.username.toLowerCase(),
+          },
+          { merge: true }
+        );
       } else {
         // Create Mode
         const eventsCol = collection(db, "events");
         await addDoc(eventsCol, {
           ...reportData,
           reportedBy: user.username,
+          reportedById: user.id || user.username.toLowerCase(),
           createdAt: new Date().toISOString(),
         });
       }
@@ -232,7 +324,10 @@ export default function ReportForm() {
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Link to="/reporting/projects" className="p-2.5 bg-white border border-slate-200 hover:border-slate-300 rounded-2xl text-slate-500 shadow-sm hover:text-[#0F172A] transition-colors">
+        <Link
+          to="/reporting/projects"
+          className="p-2.5 bg-white border border-slate-200 hover:border-slate-300 rounded-2xl text-slate-500 shadow-sm hover:text-[#0F172A] transition-colors"
+        >
           <ArrowLeft size={18} />
         </Link>
         <div>
@@ -255,7 +350,6 @@ export default function ReportForm() {
       {/* Form Container */}
       {!error || !id ? (
         <form onSubmit={handleSave} className="space-y-8">
-          
           {/* Section 1: Basic Details */}
           <div className="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
             <h3 className="text-lg font-bold text-[#0F172A] tracking-tight pb-3 border-b border-slate-100">
@@ -364,7 +458,7 @@ export default function ReportForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Project Hours</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Project Hours (per person)</label>
                 <input
                   type="number"
                   step="0.5"
@@ -375,13 +469,16 @@ export default function ReportForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Total Man Hours</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Auto-Calculated Man Hours</label>
                 <input
                   type="number"
+                  disabled
                   value={totalManHours}
-                  onChange={(e) => setTotalManHours(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#FAF7F2]/50 border border-slate-200 focus:border-[#7C3AED] rounded-xl text-sm outline-none transition-colors font-semibold"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none text-[#7C3AED] font-extrabold"
                 />
+                <p className="text-[10px] text-slate-400 mt-1 font-semibold">
+                  ({selectedAttendedMembers.length || attendance} Club + {attendees || 0} External) × {projectHours || 0} hrs
+                </p>
               </div>
             </div>
           </div>
@@ -394,7 +491,7 @@ export default function ReportForm() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 font-semibold">Aim / Objective of the Project *</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Aim / Objective of the Project *</label>
                 <textarea
                   required
                   rows="3"
@@ -405,7 +502,7 @@ export default function ReportForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 font-semibold font-semibold">Process & Execution Details *</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Process & Execution Details *</label>
                 <textarea
                   required
                   rows="4"
@@ -416,7 +513,7 @@ export default function ReportForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 font-semibold">Impact Analysis *</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Impact Analysis *</label>
                 <textarea
                   required
                   rows="3"
@@ -427,7 +524,7 @@ export default function ReportForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 font-semibold">Follow Up Plan</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Follow Up Plan</label>
                 <textarea
                   rows="2"
                   value={followUp}
@@ -438,13 +535,92 @@ export default function ReportForm() {
             </div>
           </div>
 
-          {/* Section 3: Financials & Attendance */}
+          {/* Section 3: Finance & Attendance Details */}
           <div className="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
             <h3 className="text-lg font-bold text-[#0F172A] tracking-tight pb-3 border-b border-slate-100">
               3. Finance & Attendance Details
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Club Members Attendance Interactive Multi-Select */}
+            <div className="space-y-3 bg-[#FAF7F2]/40 p-5 rounded-2xl border border-slate-200/60" ref={dropdownRef}>
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#0F172A] flex items-center gap-2">
+                  <UserCheck size={16} className="text-[#7C3AED]" />
+                  <span>Select Attended Club Members (Type Name to Search)</span>
+                </label>
+                <span className="text-xs font-extrabold text-[#7C3AED] bg-[#7C3AED]/10 px-3 py-1 rounded-full">
+                  {selectedAttendedMembers.length} Members Attended
+                </span>
+              </div>
+
+              {/* Selected Bubble Chips */}
+              <div className="flex flex-wrap gap-2 min-h-[48px] p-3 bg-white border border-slate-200 rounded-2xl items-center shadow-inner">
+                {selectedAttendedMembers.length === 0 ? (
+                  <span className="text-xs text-slate-400 font-semibold px-2 italic">
+                    No members selected yet. Type a name below to add members (e.g. Chittansh, Naman, Phreesha)...
+                  </span>
+                ) : (
+                  selectedAttendedMembers.map((m) => (
+                    <span
+                      key={m.id || m.username}
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-[#7C3AED]/15 to-[#2563EB]/15 border border-[#7C3AED]/30 text-[#7C3AED] rounded-full text-xs font-extrabold shadow-sm transition-all animate-fadeIn"
+                    >
+                      <span>{m.name}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveAttendedMember(m.id || m.username)}
+                        className="w-4 h-4 rounded-full bg-[#7C3AED]/20 hover:bg-[#7C3AED] hover:text-white flex items-center justify-center transition-colors cursor-pointer text-xs font-bold"
+                        title="Remove member"
+                      >
+                        <X size={12} />
+                      </button>
+                    </span>
+                  ))
+                )}
+              </div>
+
+              {/* Search Bar Input & Dropdown */}
+              <div className="relative">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                  <input
+                    type="text"
+                    placeholder="Type member name (e.g. Chittansh, Naman, Apurva)..."
+                    value={attendanceSearch}
+                    onFocus={() => setIsAttendanceDropdownOpen(true)}
+                    onChange={(e) => {
+                      setAttendanceSearch(e.target.value);
+                      setIsAttendanceDropdownOpen(true);
+                    }}
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] rounded-xl text-sm outline-none font-semibold transition-all shadow-sm"
+                  />
+                </div>
+
+                {/* Dropdown Options */}
+                {isAttendanceDropdownOpen && matchingMembersForAttendance.length > 0 && (
+                  <div className="absolute left-0 right-0 top-full mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 max-h-60 overflow-y-auto p-2">
+                    {matchingMembersForAttendance.slice(0, 20).map((m) => (
+                      <button
+                        key={m.id}
+                        type="button"
+                        onClick={() => handleAddAttendedMember(m)}
+                        className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-[#FAF7F2] transition-colors flex items-center justify-between cursor-pointer border-b border-slate-50 last:border-0"
+                      >
+                        <div>
+                          <p className="text-xs font-extrabold text-[#0F172A]">{m.name}</p>
+                          <p className="text-[10px] text-slate-400 font-semibold">{m.designation} · {m.category}</p>
+                        </div>
+                        <span className="text-xs text-[#7C3AED] font-bold bg-[#7C3AED]/10 px-2.5 py-1 rounded-lg">
+                          + Add Member
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Income (₹)</label>
                 <input
@@ -486,12 +662,14 @@ export default function ReportForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Club Attendance</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  Auto Club Attendance Count
+                </label>
                 <input
                   type="number"
                   value={attendance}
-                  onChange={(e) => setAttendance(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#FAF7F2]/50 border border-slate-200 focus:border-[#7C3AED] rounded-xl text-sm outline-none transition-colors font-semibold"
+                  onChange={(e) => setAttendance(parseInt(e.target.value || 0, 10))}
+                  className="w-full px-4 py-3 bg-[#FAF7F2]/50 border border-slate-200 focus:border-[#7C3AED] rounded-xl text-sm outline-none transition-colors font-semibold text-[#7C3AED]"
                 />
               </div>
 
@@ -521,9 +699,10 @@ export default function ReportForm() {
                   onChange={(e) => setChairperson(e.target.value)}
                   className="w-full px-4 py-3 bg-[#FAF7F2]/50 border border-slate-200 focus:border-[#7C3AED] rounded-xl text-sm outline-none transition-colors font-semibold cursor-pointer"
                 >
-                  {chairpersons.map((ch) => (
-                    <option key={ch.username} value={ch.username}>
-                      {ch.name} (@{ch.username})
+                  <option value="">Select Chairperson...</option>
+                  {allMembers.map((ch) => (
+                    <option key={ch.id} value={ch.username || ch.id}>
+                      {ch.name} {ch.designation ? `(${ch.designation})` : ""}
                     </option>
                   ))}
                 </select>
@@ -585,10 +764,8 @@ export default function ReportForm() {
               <span>{saving ? "Saving Report..." : "Submit Project Report"}</span>
             </button>
           </div>
-
         </form>
       ) : null}
-
     </div>
   );
 }

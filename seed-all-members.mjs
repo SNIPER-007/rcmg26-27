@@ -1,8 +1,63 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../firebase/config";
-import { hashPassword } from "./auth";
+import https from "https";
+import crypto from "crypto";
 
-const defaultMembers = [
+const PROJECT_ID = "rcmg-portal";
+const API_KEY = "AIzaSyB54MP-wQqMAxnvQPu3wsDx3YvNFOin9b4";
+
+function hashPassword(password) {
+  return crypto.createHash("sha256").update(password).digest("hex");
+}
+
+function request(options, bodyObj = null) {
+  return new Promise((resolve, reject) => {
+    const bodyStr = bodyObj ? JSON.stringify(bodyObj) : null;
+    if (bodyStr) {
+      options.headers = {
+        ...options.headers,
+        "Content-Length": Buffer.byteLength(bodyStr),
+      };
+    }
+    const req = https.request(options, (res) => {
+      let data = "";
+      res.on("data", (c) => (data += c));
+      res.on("end", () => {
+        try { resolve({ status: res.statusCode, body: JSON.parse(data) }); }
+        catch { resolve({ status: res.statusCode, body: data }); }
+      });
+    });
+    req.on("error", reject);
+    if (bodyStr) req.write(bodyStr);
+    req.end();
+  });
+}
+
+async function firestoreGet(docPath) {
+  return request({
+    hostname: "firestore.googleapis.com",
+    path: `/v1/projects/${PROJECT_ID}/databases/(default)/documents/${docPath}?key=${API_KEY}`,
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
+async function firestorePatch(docPath, fields) {
+  return request(
+    {
+      hostname: "firestore.googleapis.com",
+      path: `/v1/projects/${PROJECT_ID}/databases/(default)/documents/${docPath}?key=${API_KEY}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+    },
+    { fields }
+  );
+}
+
+// Convert plain JS primitives to Firestore REST API fields
+function s(v) { return { stringValue: String(v || "") }; }
+function b(v) { return { booleanValue: Boolean(v) }; }
+function n(v) { return { integerValue: String(v || 0) }; }
+
+const coreAndBodMembers = [
   // CORE
   { name: "Chittansh Pancholi", designation: "President", username: "Chittansh", password: "Chittansh.7", role: "PRESIDENT", category: "CORE" },
   { name: "Parin Gala", designation: "IPP", username: "Parin", password: "Parin.8", role: "IPP", category: "CORE" },
@@ -57,72 +112,71 @@ const gbmMembers = [
   { name: "Vivek Agrawal", designation: "General Body Member", category: "GBM" },
 ];
 
-export async function seedDefaultUser() {
-  try {
-    // Check if primary admin account exists
-    const userRef = doc(db, "users", "chittansh");
-    const docSnap = await getDoc(userRef);
+async function seedUser(m, isGbm = false) {
+  const docId = isGbm
+    ? `gbm_${m.name.toLowerCase().replace(/[^a-z0-9]/g, "_")}`
+    : m.username.toLowerCase();
 
-    if (!docSnap.exists()) {
-      for (const m of defaultMembers) {
-        const docId = m.username.toLowerCase();
-        const ref = doc(db, "users", docId);
-        const snap = await getDoc(ref);
-        if (!snap.exists()) {
-          const passwordHash = await hashPassword(m.password);
-          await setDoc(ref, {
-            name: m.name,
-            username: m.username,
-            passwordHash,
-            designation: m.designation,
-            role: m.role,
-            category: m.category,
-            canLogin: true,
-            active: true,
-            dateOfBirth: "",
-            contactNumber: "",
-            email: "",
-            rotaryInternationalId: "",
-            dob: "",
-            phone: "",
-            riId: "",
-            projectsChaired: 0,
-            draftsSaved: 0,
-            createdAt: new Date().toISOString(),
-          });
-        }
-      }
+  console.log(`Processing user document: users/${docId}...`);
+  const check = await firestoreGet(`users/${docId}`);
 
-      for (const g of gbmMembers) {
-        const docId = `gbm_${g.name.toLowerCase().replace(/[^a-z0-9]/g, "_")}`;
-        const ref = doc(db, "users", docId);
-        const snap = await getDoc(ref);
-        if (!snap.exists()) {
-          await setDoc(ref, {
-            name: g.name,
-            username: g.name.toLowerCase().replace(/[^a-z0-9]/g, "_"),
-            passwordHash: "",
-            designation: g.designation,
-            role: "GBM",
-            category: "GBM",
-            canLogin: false,
-            active: true,
-            dateOfBirth: "",
-            contactNumber: "",
-            email: "",
-            rotaryInternationalId: "",
-            dob: "",
-            phone: "",
-            riId: "",
-            projectsChaired: 0,
-            draftsSaved: 0,
-            createdAt: new Date().toISOString(),
-          });
-        }
-      }
-      console.log("✓ Default RCMG member accounts seeded successfully.");
-    }
-  } catch (error) {
-    console.warn("Seed check skipped:", error?.code || error?.message);
+  let existingFields = {};
+  if (check.status === 200 && check.body && check.body.fields) {
+    existingFields = check.body.fields;
+  }
+
+  const passHash = isGbm ? "" : hashPassword(m.password);
+
+  const fields = {
+    name: s(m.name),
+    username: s(isGbm ? m.name.toLowerCase().replace(/[^a-z0-9]/g, "_") : m.username),
+    passwordHash: s(passHash),
+    designation: s(m.designation),
+    role: s(isGbm ? "GBM" : m.role),
+    category: s(m.category),
+    canLogin: b(!isGbm),
+    active: b(true),
+
+    // Retain existing manually added fields if present, else blank/null defaults
+    dateOfBirth: existingFields.dateOfBirth || s(""),
+    contactNumber: existingFields.contactNumber || s(""),
+    email: existingFields.email || s(""),
+    rotaryInternationalId: existingFields.rotaryInternationalId || s(""),
+
+    // Also alias fields for compatibility if existing views use phone / riId / dob
+    dob: existingFields.dob || s(""),
+    phone: existingFields.phone || s(""),
+    riId: existingFields.riId || s(""),
+
+    projectsChaired: existingFields.projectsChaired || n(0),
+    draftsSaved: existingFields.draftsSaved || n(0),
+    createdAt: existingFields.createdAt || s(new Date().toISOString()),
+  };
+
+  const res = await firestorePatch(`users/${docId}`, fields);
+  if (res.status === 200) {
+    console.log(`  ✓ ${m.name} (@${isGbm ? "GBM" : m.username}) updated/created successfully.`);
+  } else {
+    console.error(`  ✗ Failed to update ${docId} (${res.status}):`, res.body);
   }
 }
+
+async function main() {
+  console.log("==================================================");
+  console.log("Seeding RCMG Firestore Users (CORE, BOD, GBM)");
+  console.log("==================================================");
+
+  for (const m of coreAndBodMembers) {
+    await seedUser(m, false);
+  }
+
+  for (const g of gbmMembers) {
+    await seedUser(g, true);
+  }
+
+  console.log("==================================================");
+  console.log("✓ All 36 CORE/BOD members + 10 GBM members seeded!");
+  console.log("==================================================");
+}
+
+main().catch(console.error);

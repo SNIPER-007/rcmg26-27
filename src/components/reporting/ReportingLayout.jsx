@@ -1,6 +1,6 @@
 import { Link, Navigate, Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { ArrowLeft, LayoutDashboard, FileText, PlusCircle, User, LogOut } from "lucide-react";
+import { ArrowLeft, LayoutDashboard, FileText, PlusCircle, User, Users, LogOut } from "lucide-react";
 
 export default function ReportingLayout() {
   const { user, logout, loading } = useAuth();
@@ -27,7 +27,8 @@ export default function ReportingLayout() {
     { name: "Dashboard", path: "/reporting/dashboard", icon: LayoutDashboard },
     { name: "Reports & Projects", path: "/reporting/projects", icon: FileText },
     { name: "Create Report", path: "/reporting/create", icon: PlusCircle },
-    { name: "Profile", path: "/reporting/profile", icon: User },
+    { name: "Members", path: "/reporting/members", icon: Users },
+    { name: "My Profile", path: "/reporting/profile", icon: User },
   ];
 
   return (
@@ -82,7 +83,7 @@ export default function ReportingLayout() {
         <div className="p-4 border-t border-slate-100">
           <div className="px-4 py-3 mb-2 flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[#FAF7F2] border border-slate-200 flex items-center justify-center font-bold text-xs uppercase text-[#7C3AED]">
-              {user.name.split(" ").map(n => n[0]).join("")}
+              {user.name ? user.name.split(" ").map(n => n[0]).join("") : "U"}
             </div>
             <div className="overflow-hidden">
               <h4 className="font-bold text-sm text-[#0F172A] truncate">{user.name}</h4>

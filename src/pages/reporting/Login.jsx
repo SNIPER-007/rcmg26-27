@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import ScrollReveal from "../../components/ui/ScrollReveal";
@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("Member");
   const [error, setError] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
   const { user, login } = useAuth();
@@ -25,10 +24,10 @@ export default function Login() {
     setLoggingIn(true);
 
     try {
-      await login(username, password, role);
+      await login(username, password);
       navigate("/reporting/dashboard");
     } catch (err) {
-      setError(err.message || "Invalid credentials. Please try again.");
+      setError(err.message || "Invalid username or password.");
     } finally {
       setLoggingIn(false);
     }
@@ -83,7 +82,7 @@ export default function Login() {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. chittansh"
+                  placeholder="e.g. Chittansh"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full px-5 py-4 bg-white border border-slate-200 focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] rounded-2xl text-[#0F172A] font-semibold text-sm outline-none transition-all"
@@ -104,27 +103,6 @@ export default function Login() {
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                  Portal Role
-                </label>
-                <div className="relative">
-                  <select
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    className="w-full px-5 py-4 bg-white border border-slate-200 focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] rounded-2xl text-[#0F172A] font-bold text-sm outline-none transition-all appearance-none cursor-pointer"
-                  >
-                    <option value="President">President</option>
-                    <option value="Secretary">Secretary</option>
-                    <option value="Joint Secretary">Joint Secretary</option>
-                    <option value="Member">Member</option>
-                  </select>
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                    ▼
-                  </div>
-                </div>
-              </div>
-
               <div className="pt-2">
                 <button
                   type="submit"
@@ -137,7 +115,7 @@ export default function Login() {
             </form>
 
             <div className="mt-8 text-center text-xs text-slate-400 font-semibold tracking-wide">
-              Secure admin account provisioning active.
+              Reporting Portal access for Core Team & BOD members.
             </div>
           </div>
         </ScrollReveal>

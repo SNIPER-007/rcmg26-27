@@ -20,6 +20,7 @@ import Dashboard from "./pages/reporting/Dashboard";
 import ReportForm from "./pages/reporting/ReportForm";
 import ReportList from "./pages/reporting/ReportList";
 import Profile from "./pages/reporting/Profile";
+import Members from "./pages/reporting/Members";
 import ReportingLayout from "./components/reporting/ReportingLayout";
 
 import SmoothScroll from "./components/ui/SmoothScroll";
@@ -73,6 +74,7 @@ export default function App() {
               <Route path="/reporting/projects" element={<ReportList />} />
               <Route path="/reporting/create" element={<ReportForm />} />
               <Route path="/reporting/edit/:id" element={<ReportForm />} />
+              <Route path="/reporting/members" element={<Members />} />
               <Route path="/reporting/profile" element={<Profile />} />
             </Route>
           </Routes>
