@@ -7,12 +7,12 @@ const communityService = [
   {
     name: "Rtr. Hitanshee Doshi",
     position: "Director",
-    image: "/images/team/hitanshee.jpg",
+    image: "/images/team/hitanshee.png",
   },
   {
     name: "Rtr. Yashvi Doshi",
     position: "Director",
-    image: "/images/team/yashvi.jpg",
+    image: "/images/team/yashvidoshi.jpg",
   },
 ];
 
@@ -144,7 +144,7 @@ const partnersInService = [
   {
     name: "Rtr. Hitanshee Doshi",
     position: "Director",
-    image: "/images/team/hitanshee.jpg",
+    image: "/images/team/hitanshee.png",
   },
 ];
 
