@@ -6,19 +6,19 @@ import { motion } from "framer-motion";
 const president = {
   name: "Rtr. Chittansh Pancholi",
   position: "President",
-  image: "/images/team/chittansh.jpg",
+  image: "/images/team/chittansh.jpeg",
 };
 
 const ipp = {
   name: "Rtr. Parin Gala",
   position: "Immediate Past President",
-  image: "/images/team/parin.jpg",
+  image: "/images/team/parin.JPG",
 };
 
 const secretary = {
   name: "Rtr. Shraddha Sutar",
   position: "Secretary",
-  image: "/images/team/shraddha.jpg",
+  image: "/images/team/shraddha.jpeg",
 };
 
 const vicePresidents = [
@@ -30,12 +30,12 @@ const vicePresidents = [
   {
     name: "Rtr. Triman Oberoi",
     position: "Vice President",
-    image: "/images/team/triman.jpg",
+    image: "/images/team/triman.jpeg",
   },
   {
     name: "Rtr. Yashvi Shah",
     position: "Vice President & Sergeant-at-Arms",
-    image: "/images/team/yashvi.jpg",
+    image: "/images/team/yashvi.png",
   },
 ];
 
@@ -43,7 +43,7 @@ const jointSecretaries = [
   {
     name: "Rtr. Prajyot Mahajan",
     position: "Joint Secretary",
-    image: "/images/team/prajyot.jpg",
+    image: "/images/team/prajyot.jpeg",
   },
   {
     name: "Rtr. Tanishka Chandan",
@@ -61,14 +61,14 @@ const treasurers = [
   {
     name: "Rtr. Purav Shah",
     position: "Treasurer",
-    image: "/images/team/purav.jpg",
+    image: "/images/team/purav.png",
   },
 ];
 
 const saa = {
   name: "Rtr. Yashvi Shah",
   position: "Vice President & Sergeant-at-Arms",
-  image: "/images/team/yashvi.jpg",
+  image: "/images/team/yashvi.png",
 };
 
 const hrd = [
@@ -93,12 +93,12 @@ const avenues = [
   {
     name: "Rtr. Ayush Shah",
     position: "Chairman – Public Relations & Marketing",
-    image: "/images/team/ayush.jpg",
+    image: "/images/team/ayush.png",
   },
   {
     name: "Rtr. Hraday Karani",
     position: "Chairman – Community Service",
-    image: "/images/team/hraday.jpg",
+    image: "/images/team/hraday.png",
   },
   {
     name: "Rtr. Siddhesh Dicholkar",
@@ -110,7 +110,7 @@ const avenues = [
 const advisor = {
   name: "Rtr. Tisha Kothari",
   position: "Club Advisor",
-  image: "/images/team/tisha.jpg",
+  image: "/images/team/tisha.jpeg",
 };
 
 function TeamCard({ member, featured = false, index = 0 }) {
