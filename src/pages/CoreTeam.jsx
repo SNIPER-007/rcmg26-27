@@ -4,86 +4,86 @@ import ScrollReveal from "../components/ui/ScrollReveal";
 import { motion } from "framer-motion";
 
 const president = {
-  name: "Chittansh Pancholi",
+  name: "Rtr. Chittansh Pancholi",
   position: "President",
-  image: "/images/team/chittansh.jpeg",
+  image: "/images/team/chittansh.jpg",
 };
 
 const ipp = {
-  name: "Parin Gala",
+  name: "Rtr. Parin Gala",
   position: "Immediate Past President",
-  image: "/images/team/parin.JPG",
+  image: "/images/team/parin.jpg",
 };
 
 const secretary = {
-  name: "Shraddha Sutar",
+  name: "Rtr. Shraddha Sutar",
   position: "Secretary",
-  image: "/images/team/shraddha.jpeg",
+  image: "/images/team/shraddha.jpg",
 };
 
 const vicePresidents = [
   {
-    name: "Om Walanju",
+    name: "Rtr. Om Walanju",
     position: "Vice President",
     image: "/images/team/om.jpg",
   },
   {
-    name: "Triman Oberoi",
+    name: "Rtr. Triman Oberoi",
     position: "Vice President",
-    image: "/images/team/triman.jpeg",
+    image: "/images/team/triman.jpg",
   },
   {
-    name: "Yashvi Shah",
+    name: "Rtr. Yashvi Shah",
     position: "Vice President & Sergeant-at-Arms",
-    image: "/images/team/yashvi.png",
+    image: "/images/team/yashvi.jpg",
   },
 ];
 
 const jointSecretaries = [
   {
-    name: "Prajyot Mahajan",
+    name: "Rtr. Prajyot Mahajan",
     position: "Joint Secretary",
-    image: "/images/team/prajyot.jpeg",
+    image: "/images/team/prajyot.jpg",
   },
   {
-    name: "Tanishka Chandan",
+    name: "Rtr. Tanishka Chandan",
     position: "Joint Secretary",
-    image: "/images/team/tanishka.png",
+    image: "/images/team/tanishka.jpg",
   },
 ];
 
 const treasurers = [
   {
-    name: "Kunjal Pal",
+    name: "Rtr. Kunjal Pal",
     position: "Treasurer",
     image: "/images/team/kunjal.jpg",
   },
   {
-    name: "Purav Shah",
+    name: "Rtr. Purav Shah",
     position: "Treasurer",
-    image: "/images/team/purav.png",
+    image: "/images/team/purav.jpg",
   },
 ];
 
 const saa = {
-  name: "Yashvi Shah",
+  name: "Rtr. Yashvi Shah",
   position: "Vice President & Sergeant-at-Arms",
-  image: "/images/team/yashvi.png",
+  image: "/images/team/yashvi.jpg",
 };
 
 const hrd = [
   {
-    name: "Khushi Modi",
+    name: "Rtr. Khushi Modi",
     position: "Human Resource Development",
     image: "/images/team/khushi.jpg",
   },
   {
-    name: "Sanjana Sardesai",
+    name: "Rtr. Sanjana Sardesai",
     position: "Human Resource Development",
     image: "/images/team/sanjana.jpg",
   },
   {
-    name: "Sayam Parekh",
+    name: "Rtr. Sayam Parekh",
     position: "Human Resource Development",
     image: "/images/team/sayam.jpg",
   },
@@ -91,31 +91,26 @@ const hrd = [
 
 const avenues = [
   {
-    name: "Ayush Shah",
+    name: "Rtr. Ayush Shah",
     position: "Chairman – Public Relations & Marketing",
-    image: "/images/team/ayush.png",
+    image: "/images/team/ayush.jpg",
   },
   {
-    name: "Gauri Pawaskar",
-    position: "Chairwoman – A3 Avenue",
-    image: "/images/team/gauri.jpeg",
-  },
-  {
-    name: "Hraday Karani",
+    name: "Rtr. Hraday Karani",
     position: "Chairman – Community Service",
-    image: "/images/team/hraday.png",
+    image: "/images/team/hraday.jpg",
   },
   {
-    name: "Siddhesh Dicholkar",
+    name: "Rtr. Siddhesh Dicholkar",
     position: "Chairman – Sports Avenue",
-    image: "/images/team/siddhesh.png",
+    image: "/images/team/siddhesh.jpg",
   },
 ];
 
 const advisor = {
-  name: "Tisha Kothari",
+  name: "Rtr. Tisha Kothari",
   position: "Club Advisor",
-  image: "/images/team/tisha.jpeg",
+  image: "/images/team/tisha.jpg",
 };
 
 function TeamCard({ member, featured = false, index = 0 }) {
@@ -186,30 +181,14 @@ export default function CoreTeam() {
         <ScrollReveal variant="scale" duration={0.6} className="flex justify-center">
           <div className="bg-white rounded-full p-2 shadow-sm border border-slate-200 flex gap-2">
             <button
-              className="
-                px-6
-                py-3
-                rounded-full
-                bg-[#0f172a]
-                text-white
-                font-medium
-                cursor-default
-              "
+              className="px-6 py-3 rounded-full bg-[#0f172a] text-white font-medium cursor-default"
             >
               Core Team
             </button>
 
             <Link
               to="/bod"
-              className="
-                px-6
-                py-3
-                rounded-full
-                text-slate-600
-                hover:bg-slate-100
-                transition-all
-                font-medium
-              "
+              className="px-6 py-3 rounded-full text-slate-600 hover:bg-slate-100 transition-all font-medium"
             >
               Board of Directors
             </Link>
@@ -241,11 +220,7 @@ export default function CoreTeam() {
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {vicePresidents.map((member, i) => (
-            <TeamCard
-              key={member.name}
-              member={member}
-              index={i}
-            />
+            <TeamCard key={member.name} member={member} index={i} />
           ))}
         </div>
       </section>
@@ -260,11 +235,7 @@ export default function CoreTeam() {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {jointSecretaries.map((member, i) => (
-            <TeamCard
-              key={member.name}
-              member={member}
-              index={i}
-            />
+            <TeamCard key={member.name} member={member} index={i} />
           ))}
         </div>
       </section>
@@ -279,11 +250,7 @@ export default function CoreTeam() {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {treasurers.map((member, i) => (
-            <TeamCard
-              key={member.name}
-              member={member}
-              index={i}
-            />
+            <TeamCard key={member.name} member={member} index={i} />
           ))}
         </div>
       </section>
@@ -310,11 +277,7 @@ export default function CoreTeam() {
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {hrd.map((member, i) => (
-            <TeamCard
-              key={member.name}
-              member={member}
-              index={i}
-            />
+            <TeamCard key={member.name} member={member} index={i} />
           ))}
         </div>
       </section>
@@ -329,11 +292,7 @@ export default function CoreTeam() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {avenues.map((member, i) => (
-            <TeamCard
-              key={member.name}
-              member={member}
-              index={i}
-            />
+            <TeamCard key={member.name} member={member} index={i} />
           ))}
         </div>
       </section>

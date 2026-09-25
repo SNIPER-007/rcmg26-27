@@ -5,204 +5,183 @@ import { motion } from "framer-motion";
 
 const communityService = [
   {
-    name: "Hraday Karani",
-    position: "Chairman",
-    image: "/images/team/hraday.png",
-  },
-  {
-    name: "Hitanshee",
+    name: "Rtr. Hitanshee Doshi",
     position: "Director",
-    image: "/images/team/hitanshee.png",
+    image: "/images/team/hitanshee.jpg",
   },
   {
-    name: "Position Available",
-    position: "Vacant",
-    image: "/images/team/placeholder.png",
+    name: "Rtr. Yashvi Doshi",
+    position: "Director",
+    image: "/images/team/yashvi.jpg",
   },
 ];
 
 const clubService = [
   {
-    name: "Yaj",
+    name: "Rtr. Eshva Padia",
     position: "Director",
-    image: "/images/team/yaj.png",
+    image: "/images/team/eshva.jpg",
   },
   {
-    name: "Eshva",
+    name: "Rtr. Simran Shreya",
     position: "Director",
-    image: "/images/team/eshva.png",
+    image: "/images/team/simran.jpg",
   },
   {
-    name: "Simran",
+    name: "Rtr. Yaj Shah",
     position: "Director",
-    image: "/images/team/simran.png",
+    image: "/images/team/yaj.jpg",
   },
 ];
 
 const sports = [
   {
-    name: "Siddhesh Dicholkar",
-    position: "Chairman",
-    image: "/images/team/siddhesh.png",
-  },
-  {
-    name: "Atharva",
+    name: "Rtr. Naytik Chordiya",
     position: "Director",
-    image: "/images/team/atharva.png",
+    image: "/images/team/naytik.jpg",
   },
   {
-    name: "Position Available",
-    position: "Vacant",
-    image: "/images/team/placeholder.png",
+    name: "Rtr. Pratham Satra",
+    position: "Director",
+    image: "/images/team/pratham.jpg",
   },
 ];
 
 const professionalDevelopment = [
   {
-    name: "Gauri Pawaskar",
-    position: "Chairwoman",
-    image: "/images/team/gauri.jpeg",
-  },
-  {
-    name: "Sneha",
+    name: "Rtr. Saikumar Mahale",
     position: "Director",
-    image: "/images/team/sneha.png",
+    image: "/images/team/saikumar.jpg",
   },
   {
-    name: "Position Available",
-    position: "Vacant",
-    image: "/images/team/placeholder.png",
+    name: "Rtr. Sneha Singh",
+    position: "Director",
+    image: "/images/team/sneha.jpg",
   },
 ];
 
 const entrepreneurshipDevelopment = [
   {
-    name: "Gauri Pawaskar",
-    position: "Chairwoman",
-    image: "/images/team/gauri.jpeg",
-  },
-  {
-    name: "Chetan",
+    name: "Rtr. Chetan Bhabad",
     position: "Director",
     image: "/images/team/chetan.png",
   },
   {
-    name: "Jill",
+    name: "Rtr. Jill Shah",
     position: "Director",
-    image: "/images/team/jill.png",
+    image: "/images/team/jill.jpg",
   },
 ];
 
 const prm = [
   {
-    name: "Ayush Shah",
-    position: "Chairman",
-    image: "/images/team/ayush.png",
-  },
-  {
-    name: "Chetan",
+    name: "Rtr. Chetan Bhabad",
     position: "Director",
     image: "/images/team/chetan.png",
   },
   {
-    name: "Jill",
+    name: "Rtr. Jill Shah",
     position: "Director",
-    image: "/images/team/jill.png",
+    image: "/images/team/jill.jpg",
   },
 ];
 
 const digitalCommunication = [
   {
-    name: "Avanti Shirkande",
+    name: "Rtr. Avanti Shirkande",
     position: "Director",
-    image: "/images/team/avanti.png",
+    image: "/images/team/avanti.jpg",
   },
   {
-    name: "Position Available",
-    position: "Vacant",
-    image: "/images/team/placeholder.png",
+    name: "Rtr. Harsh Pawar",
+    position: "Director",
+    image: "/images/team/harsh.jpg",
+  },
+  {
+    name: "Rtr. Tanvi Kadam",
+    position: "Director",
+    image: "/images/team/tanvi.jpg",
   },
 ];
 
 const editorial = [
   {
-    name: "Merrisca",
+    name: "Rtr. Abhishek Yadav",
     position: "Director",
-    image: "/images/team/merrisca.png",
+    image: "/images/team/abhishek.jpg",
   },
   {
-    name: "Abhishek",
+    name: "Rtr. Merrisca Pereira",
     position: "Director",
-    image: "/images/team/abhishek.png",
+    image: "/images/team/merrisca.jpg",
+  },
+  {
+    name: "Rtr. Najar Balia",
+    position: "Director",
+    image: "/images/team/najar.jpg",
   },
 ];
 
 const internationalService = [
   {
-    name: "Avanti Shirkande",
+    name: "Rtr. Avanti Shirkande",
     position: "Director",
-    image: "/images/team/avanti.png",
+    image: "/images/team/avanti.jpg",
   },
   {
-    name: "Merrisca",
+    name: "Rtr. Merrisca Pereira",
     position: "Director",
-    image: "/images/team/merrisca.png",
+    image: "/images/team/merrisca.jpg",
   },
 ];
 
 const partnersInService = [
   {
-    name: "Eshva",
+    name: "Rtr. Eshva Padia",
     position: "Director",
-    image: "/images/team/eshva.png",
+    image: "/images/team/eshva.jpg",
   },
   {
-    name: "Hitanshee",
+    name: "Rtr. Hitanshee Doshi",
     position: "Director",
-    image: "/images/team/hitanshee.png",
+    image: "/images/team/hitanshee.jpg",
   },
 ];
 
 const socialMedia = [
   {
-    name: "Aditya",
+    name: "Rtr. Abhishek Yadav",
+    position: "Director",
+    image: "/images/team/abhishek.jpg",
+  },
+  {
+    name: "Rtr. Aditya Hemani",
     position: "Director",
     image: "/images/team/aditya.png",
   },
   {
-    name: "Abhishek",
+    name: "Rtr. Simran Shreya",
     position: "Director",
-    image: "/images/team/abhishek.png",
-  },
-  {
-    name: "Simran",
-    position: "Director",
-    image: "/images/team/simran.png",
+    image: "/images/team/simran.jpg",
   },
 ];
 
 function BODCard({ member, index = 0 }) {
-  const isVacant = member.position === "Vacant" || member.name === "Position Available";
-
   return (
     <ScrollReveal variant="fade-up" delay={index * 0.08} duration={0.6}>
       <motion.div
-        whileHover={isVacant ? {} : {
+        whileHover={{
           y: -8,
           scale: 1.015,
           boxShadow: "0 25px 50px -15px rgba(15, 23, 42, 0.08)",
         }}
-        className={`group overflow-hidden bg-white border border-black/5 transition-all duration-500 rounded-[32px] shadow-sm ${
-          isVacant ? "opacity-60" : ""
-        }`}
+        className="group overflow-hidden bg-white border border-black/5 transition-all duration-500 rounded-[32px] shadow-sm"
       >
         <div className="overflow-hidden aspect-square relative bg-slate-100">
           <img
             src={member.image}
             alt={member.name}
-            className={`w-full h-full object-cover transition-transform duration-700 ${
-              isVacant ? "" : "group-hover:scale-105"
-            }`}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             onError={(e) => {
               e.target.src =
                 "https://placehold.co/600x600/e2e8f0/475569?text=RCMG+BOD";
@@ -295,71 +274,17 @@ export default function BOD() {
         </ScrollReveal>
       </section>
 
-      <AvenueSection
-        title="Community Service"
-        members={communityService}
-        isOdd={true}
-      />
-
-      <AvenueSection
-        title="Club Service"
-        members={clubService}
-        isOdd={false}
-      />
-
-      <AvenueSection
-        title="Sports"
-        members={sports}
-        isOdd={true}
-      />
-
-      <AvenueSection
-        title="Professional Development"
-        members={professionalDevelopment}
-        isOdd={false}
-      />
-
-      <AvenueSection
-        title="Entrepreneurship Development"
-        members={entrepreneurshipDevelopment}
-        isOdd={true}
-      />
-
-      <AvenueSection
-        title="Public Relations & Marketing"
-        members={prm}
-        isOdd={false}
-      />
-
-      <AvenueSection
-        title="Digital Communication"
-        members={digitalCommunication}
-        isOdd={true}
-      />
-
-      <AvenueSection
-        title="Editorial"
-        members={editorial}
-        isOdd={false}
-      />
-
-      <AvenueSection
-        title="International Service"
-        members={internationalService}
-        isOdd={true}
-      />
-
-      <AvenueSection
-        title="Partners In Service"
-        members={partnersInService}
-        isOdd={false}
-      />
-
-      <AvenueSection
-        title="Social Media"
-        members={socialMedia}
-        isOdd={true}
-      />
+      <AvenueSection title="Community Service" members={communityService} isOdd={true} />
+      <AvenueSection title="Club Service" members={clubService} isOdd={false} />
+      <AvenueSection title="Sports" members={sports} isOdd={true} />
+      <AvenueSection title="Professional Development" members={professionalDevelopment} isOdd={false} />
+      <AvenueSection title="Entrepreneurship Development" members={entrepreneurshipDevelopment} isOdd={true} />
+      <AvenueSection title="Public Relations & Marketing" members={prm} isOdd={false} />
+      <AvenueSection title="Digital Communication" members={digitalCommunication} isOdd={true} />
+      <AvenueSection title="Editorial" members={editorial} isOdd={false} />
+      <AvenueSection title="International Service" members={internationalService} isOdd={true} />
+      <AvenueSection title="Partners In Service" members={partnersInService} isOdd={false} />
+      <AvenueSection title="Social Media" members={socialMedia} isOdd={true} />
     </PageTransition>
   );
 }
