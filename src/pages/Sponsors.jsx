@@ -5,14 +5,14 @@ import { motion } from "framer-motion";
 // 2026-27 Partners (New Term)
 const sponsors2026_27 = [
   "Equity Engineers",
-  "Roswalt Realty",
-  "Labdhi Group",
-  "Enrich Salons",
-  "Diced Dynasty",
 ];
 
 // 2025-26 Partners
 const sponsors2025_26 = [
+  "Roswalt Realty",
+  "Labdhi Group",
+  "Enrich Salons",
+  "Diced Dynasty",
   "Love Sugar Dough",
   "Case Khazana",
   "Aakar Media",
