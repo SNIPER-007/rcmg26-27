@@ -290,7 +290,7 @@ export default function CoreTeam() {
           </h2>
         </ScrollReveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {avenues.map((member, i) => (
             <TeamCard key={member.name} member={member} index={i} />
           ))}
